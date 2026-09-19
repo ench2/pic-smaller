@@ -59,6 +59,25 @@ npm run build:pages # Export the static Cloudflare Pages site to out/
 
 ## Deployment
 
+### Cloudflare Workers
+
+The application can also run on Workers Static Assets without a Node.js server.
+Connect the repository to Workers Builds with these settings:
+
+| Setting | Value |
+| --- | --- |
+| Production branch | `master` |
+| Build command | `npm run build:pages` |
+| Deploy command | `npx wrangler deploy` |
+| Preview deploy command | `npx wrangler versions upload` |
+| Root directory | `/` |
+| Node.js version | `22` (see `.node-version`) |
+
+Despite its name, `build:pages` produces a standard Next.js static export that
+works with both Workers and Pages. `wrangler.jsonc` serves `out/`, resolves
+localized HTML routes, and uses the exported `404.html` for missing pages.
+Keep the generated `out/` directory and Cloudflare credentials out of Git.
+
 ### Cloudflare Pages
 
 The public site uses Cloudflare Pages with the GitHub repository integration.
