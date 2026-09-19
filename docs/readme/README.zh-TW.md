@@ -1,21 +1,11 @@
-# Pic Smaller (圖小小)
+# LiteFrame (輕幀)
 
 [English](../../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja-JP.md) · [한국어](README.ko-KR.md) · [Français](README.fr-FR.md) · [Español](README.es-ES.md) · [فارسی](README.fa-IR.md) · [Türkçe](README.tr-TR.md)
 
-> [!IMPORTANT]
-> ### Pic Smaller Desktop — 旗艦版
-> **不妥協的原生效能，超越瀏覽器限制。**
->
-> 使用旗艦版 Pic Smaller Desktop 升級您的工作流程。這是一款專為追求卓越的專業人士打造的原生桌面應用——輕鬆駕馭超大檔案與海量資料夾，支援 16+ 圖片格式，並帶來更卓越的處理效能。搭配全套 AI 工具：背景移除、浮水印移除與高保真圖像放大，讓體驗更加完整。
->
-> [![探索 Pic Smaller Desktop](https://img.shields.io/badge/Explore_Pic_Smaller_Desktop-00876c?style=for-the-badge)](https://desktop.picsmaller.com/)
-
-Pic Smaller 是一款免費、開源的批次圖片壓縮工具，完全在瀏覽器中執行。圖片透過
+LiteFrame 是一款免費、開源的批次圖片壓縮工具，完全在瀏覽器中執行。圖片透過
 Web Workers、WebAssembly、Canvas 及瀏覽器編解碼器在本機完成處理，檔案絕不
 上傳到任何應用伺服器。
-
-您可以使用託管版本 [picsmaller.com](https://picsmaller.com/) 或
-[www.picsmaller.com](https://www.picsmaller.com/)。
+[piczip.ajutx.com](https://piczip.ajutx.com/)
 
 ## 功能特性
 
@@ -29,7 +19,7 @@ Web Workers、WebAssembly、Canvas 及瀏覽器編解碼器在本機完成處理
 
 ## 介面截圖
 
-![Pic Smaller 壓縮工作區](../demo1.png)
+![LiteFrame 壓縮工作區](../liteframe-workspace.png)
 
 核心工作區將批次輸入、壓縮結果、輸出設定和下載操作整合在一個檢視內。
 
@@ -127,7 +117,7 @@ Cloudflare 令牌、`.env` 檔案、`.dev.vars`、私密金鑰或本機 Wrangler
 
 ## 授權條款
 
-Pic Smaller 基於 [MIT 授權條款](./LICENSE) 發布。
+LiteFrame 基於 [MIT 授權條款](./LICENSE) 發布。
 
 ## 致謝
 
@@ -135,3 +125,9 @@ Pic Smaller 基於 [MIT 授權條款](./LICENSE) 發布。
 - [heic-to](https://github.com/hoppergee/heic-to) 提供瀏覽器端 HEIC 和 HEIF 解碼。
 - [SVGO](https://github.com/svg/svgo) 提供 SVG 最佳化。
 - [gifsicle-wasm-browser](https://github.com/renzhezhilu/gifsicle-wasm-browser) 提供 GIF 壓縮。
+
+## Upstream attribution
+
+LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
+The original MIT license and copyright notices are retained. Repository names,
+deployment identifiers, and browser storage keys remain unchanged for compatibility.

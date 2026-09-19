@@ -1,21 +1,11 @@
-# Pic Smaller (图小小)
+# LiteFrame (轻帧)
 
 [English](README.md) · [简体中文](docs/readme/README.zh-CN.md) · [繁體中文](docs/readme/README.zh-TW.md) · [日本語](docs/readme/README.ja-JP.md) · [한국어](docs/readme/README.ko-KR.md) · [Français](docs/readme/README.fr-FR.md) · [Español](docs/readme/README.es-ES.md) · [فارسی](docs/readme/README.fa-IR.md) · [Türkçe](docs/readme/README.tr-TR.md)
 
-> [!IMPORTANT]
-> ### Pic Smaller Desktop — The Flagship Edition
-> **Uncompromising native power, beyond the browser.**
->
-> Elevate your workflow with the flagship Pic Smaller Desktop. A dedicated native application built for professionals who refuse to settle — it glides through massive files and entire folder libraries, supports 16+ image formats, and delivers superior processing performance. Complete the experience with an advanced suite of AI tools: background removal, watermark removal, and high-fidelity image upscaling.
->
-> [![Explore Pic Smaller Desktop](https://img.shields.io/badge/Explore_Pic_Smaller_Desktop-00876c?style=for-the-badge)](https://desktop.picsmaller.com/)
-
-Pic Smaller is a free, open-source batch image compressor that runs entirely
+LiteFrame is a free, open-source batch image compressor that runs entirely
 in the browser. Images are processed locally with Web Workers, WebAssembly,
 Canvas, and browser codecs. Files are never uploaded to an application server.
-
-Use the hosted app at [picsmaller.com](https://picsmaller.com/) or
-[www.picsmaller.com](https://www.picsmaller.com/).
+[piczip.ajutx.com](https://piczip.ajutx.com/)
 
 ## Features
 
@@ -29,7 +19,7 @@ Use the hosted app at [picsmaller.com](https://picsmaller.com/) or
 
 ## Screenshot
 
-![Pic Smaller compressor workspace](./docs/demo1.png)
+![LiteFrame compressor workspace](./docs/liteframe-workspace.png)
 
 The core workspace combines batch input, compression results, output settings,
 and download actions in one view.
@@ -156,7 +146,7 @@ provide only documented placeholder names in an `.env.example` file.
 
 ## License
 
-Pic Smaller is available under the [MIT License](./LICENSE).
+LiteFrame is available under the [MIT License](./LICENSE).
 
 ## Acknowledgements
 
@@ -164,3 +154,22 @@ Pic Smaller is available under the [MIT License](./LICENSE).
 - [heic-to](https://github.com/hoppergee/heic-to) for browser-side HEIC and HEIF decoding.
 - [SVGO](https://github.com/svg/svgo) for SVG optimization.
 - [gifsicle-wasm-browser](https://github.com/renzhezhilu/gifsicle-wasm-browser) for GIF compression.
+
+## Upstream attribution
+
+LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
+The original MIT license and copyright notices are retained. Repository names,
+deployment identifiers, and browser storage keys remain unchanged for compatibility.
+
+## Brand and browser regression checks
+
+The production origin is https://piczip.ajutx.com/. Branding lives in `src/brand.ts`;
+SEO, robots, and sitemap use `src/locale-config.ts`. The image engines, route paths,
+upstream attribution, and existing browser storage keys are unchanged.
+
+Run `npm test`, `npm run lint`, and `npm run build`. After building, install the
+browser once with `npx playwright install chromium`, then run `npm run test:browser`.
+To use an installed Edge browser on Windows, set `PLAYWRIGHT_CHANNEL=msedge`
+in the environment before running the browser tests. Tests cover 375/768/1440px,
+real worker processing, file/folder import, paste/drop, resize/crop, conversion,
+ZIP downloads, keyboard focus, locale switching, and production metadata.

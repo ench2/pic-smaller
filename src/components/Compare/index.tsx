@@ -6,6 +6,7 @@ import { ImageItem, homeState } from "@/states/home";
 import { observer } from "mobx-react-lite";
 import classNames from "classnames";
 import { gstate } from "@/global";
+import { getHomeCopy } from "@/views/home/copy";
 
 export interface CompareState {
   x: number;
@@ -33,7 +34,7 @@ const CompareImage = memo(function CompareImage({
   style: React.CSSProperties;
   onLoad: () => void;
 }) {
-  return <img src={src} style={style} onLoad={onLoad} />;
+  return <img src={src} style={style} onLoad={onLoad} alt="" />;
 });
 
 export const Compare = observer(() => {
@@ -57,6 +58,39 @@ export const Compare = observer(() => {
   const [oldLoaded, setOldLoaded] = useState<boolean>(false);
   const [newLoaded, setNewLoaded] = useState<boolean>(false);
   const [showHelp, setShowHelp] = useState(false);
+  const text = getHomeCopy(gstate.lang);
+
+  useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null;
+    const overflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    barRef.current?.focus();
+    const keydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") homeState.compareId = null;
+      if (event.key !== "Tab") return;
+      const elements = Array.from(
+        containerRef.current?.querySelectorAll<HTMLElement>(
+          'button, [tabindex="0"]',
+        ) ?? [],
+      );
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      }
+      if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+    document.addEventListener("keydown", keydown);
+    return () => {
+      document.documentElement.style.overflow = overflow;
+      document.removeEventListener("keydown", keydown);
+      previous?.focus();
+    };
+  }, []);
 
   const update = useCallback(
     (newState: Partial<CompareState>) => {
@@ -128,7 +162,9 @@ export const Compare = observer(() => {
       });
     };
 
-    const mousedown = (event: MouseEvent) => {
+    const mousedown = (event: PointerEvent) => {
+      event.preventDefault();
+      bar.setPointerCapture(event.pointerId);
       isControl = true;
       cursorX = event.clientX;
       updateRef.current({ moving: true });
@@ -140,7 +176,7 @@ export const Compare = observer(() => {
       updateRef.current({ moving: false });
     };
 
-    const mousemove = (event: MouseEvent) => {
+    const mousemove = (event: PointerEvent) => {
       if (isControl) {
         const states = stateRef.current();
         let x = states.x + event.clientX - cursorX;
@@ -193,18 +229,20 @@ export const Compare = observer(() => {
 
     window.addEventListener("resize", resize);
     window.addEventListener("wheel", wheel);
-    bar.addEventListener("mousedown", mousedown);
-    doc.addEventListener("mousemove", mousemove);
-    doc.addEventListener("mouseup", mouseup);
+    bar.addEventListener("pointerdown", mousedown);
+    doc.addEventListener("pointermove", mousemove);
+    doc.addEventListener("pointerup", mouseup);
+    doc.addEventListener("pointercancel", mouseup);
 
     resize();
 
     return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("wheel", wheel);
-      bar.removeEventListener("mousedown", mousedown);
-      doc.removeEventListener("mousemove", mousemove);
-      doc.removeEventListener("mouseup", mouseup);
+      bar.removeEventListener("pointerdown", mousedown);
+      doc.removeEventListener("pointermove", mousemove);
+      doc.removeEventListener("pointerup", mouseup);
+      doc.removeEventListener("pointercancel", mouseup);
     };
   }, []);
 
@@ -245,6 +283,9 @@ export const Compare = observer(() => {
 
   return createPortal(
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={gstate.locale?.previewHelp}
       className={classNames(
         style.container,
         state.moving && style.moving,
@@ -276,18 +317,57 @@ export const Compare = observer(() => {
         />
       </div>
       <div style={barStyle}>
-        <div ref={barRef}><ArrowLeftRight size={20} /></div>
+        <div
+          ref={barRef}
+          role="slider"
+          tabIndex={0}
+          aria-label={gstate.locale?.previewHelp}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(state.xrate * 100)}
+          onKeyDown={(event) => {
+            if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key))
+              return;
+            event.preventDefault();
+            const xrate =
+              event.key === "Home"
+                ? 0
+                : event.key === "End"
+                  ? 1
+                  : Math.max(
+                      0,
+                      Math.min(
+                        1,
+                        state.xrate +
+                          (event.key === "ArrowRight" ? 0.05 : -0.05),
+                      ),
+                    );
+            update({ xrate, x: xrate * state.containerWidth });
+          }}
+        >
+          <ArrowLeftRight size={20} />
+        </div>
       </div>
       <div className={style.action}>
-        {showHelp && <div className={style.help}>{gstate.locale?.previewHelp}</div>}
-        <button type="button" aria-label="Comparison help" onClick={() => setShowHelp(!showHelp)}><CircleHelp size={20} /></button>
+        {showHelp && (
+          <div className={style.help}>{gstate.locale?.previewHelp}</div>
+        )}
         <button
           type="button"
-          aria-label="Close comparison"
+          aria-label={text.compareHelp}
+          onClick={() => setShowHelp(!showHelp)}
+        >
+          <CircleHelp size={20} />
+        </button>
+        <button
+          type="button"
+          aria-label={text.compareClose}
           onClick={() => {
             updateRef.current?.({ status: "hide" });
           }}
-        ><X size={20} /></button>
+        >
+          <X size={20} />
+        </button>
       </div>
     </div>,
     document.body,

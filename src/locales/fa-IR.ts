@@ -1,20 +1,23 @@
+import { brand } from "@/brand";
 import { LocaleData } from "@/type";
 
 const localeData: LocaleData = {
-  logo: "PicSmaller",
-  siteTitle:
-    "PicSmaller - Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images intelligently",
+  logo: brand.en,
+  siteTitle: `${brand.en} - Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images intelligently`,
   siteDescription:
     "Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images securely in your browser. Batch resize, crop, and convert formats — all processed locally.",
   initial: "در حال راه‌اندازی",
   previewHelp:
     "خط تقسیم را برای مقایسه اثر فشرده سازی بکشید: سمت چپ تصویر اصلی و سمت راست تصویر فشرده است",
   heif: {
-    previewUnavailable: "مرورگر نمی‌تواند تصویر اصلی HEIC/HEIF را مستقیماً نمایش دهد؛ بنابراین مقایسه قبل و بعد در دسترس نیست.",
-    originalPreserved: "فرمت خروجی انتخاب نشده است، بنابراین فایل اصلی HEIC/HEIF حفظ شد. برای تغییر اندازه یا فشرده‌سازی، یک فرمت خروجی انتخاب کنید.",
+    previewUnavailable:
+      "مرورگر نمی‌تواند تصویر اصلی HEIC/HEIF را مستقیماً نمایش دهد؛ بنابراین مقایسه قبل و بعد در دسترس نیست.",
+    originalPreserved:
+      "فرمت خروجی انتخاب نشده است، بنابراین فایل اصلی HEIC/HEIF حفظ شد. برای تغییر اندازه یا فشرده‌سازی، یک فرمت خروجی انتخاب کنید.",
   },
   errors: {
-    animatedUnsupported: "فشرده‌سازی AVIF/WebP متحرک پشتیبانی نمی‌شود؛ فایل اصلی حفظ شد.",
+    animatedUnsupported:
+      "فشرده‌سازی AVIF/WebP متحرک پشتیبانی نمی‌شود؛ فایل اصلی حفظ شد.",
   },
   uploadCard: {
     title: "تصاویر خود را اینجا بکشید یا انتخاب کنید",
@@ -69,7 +72,8 @@ const localeData: LocaleData = {
     confirmBtn: "اعمال گزینه‌ها",
     qualityTitle: "تنظیم کیفیت تصویر خروجی (0-1)",
     extremeMode: "حالت فشرده‌سازی حداکثری",
-    extremeModeHint: "پردازش کندتر خواهد بود، اما معمولاً فایل کوچک‌تری تولید می‌کند.",
+    extremeModeHint:
+      "پردازش کندتر خواهد بود، اما معمولاً فایل کوچک‌تری تولید می‌کند.",
     colorsDesc: "تنظیم تعداد رنگ‌های خروجی (2-256)",
     pngDithering: "تنظیم ضریب دانه‌بندی (0-1)",
     gifDithering: "فعال کردن دانه‌بندی",

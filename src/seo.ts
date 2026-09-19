@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { brand, getBrandName } from "./brand";
 import type { LocaleData } from "./type";
 import {
   getLocalePath,
@@ -33,11 +34,24 @@ export function createLocaleMetadata(
       url: getLocalePath(locale),
       title: localeData.siteTitle,
       description: localeData.siteDescription,
-      siteName: "PicSmaller",
+      siteName: getBrandName(locale),
       locale: locale.replace("-", "_"),
+      images: [
+        { url: "/social-card.png", width: 1200, height: 630, alt: brand.en },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: localeData.siteTitle,
+      description: localeData.siteDescription,
+      images: ["/social-card.png"],
     },
     icons: {
-      icon: "/logo.png",
+      icon: [
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+      ],
+      apple: "/apple-touch-icon.png",
     },
     other: {
       google: "notranslate",

@@ -1,10 +1,6 @@
 import type { Viewport } from "next";
-import { notFound } from "next/navigation";
 import "@/main.scss";
-import {
-  isSupportedLocale,
-  supportedLocales,
-} from "@/locale-config";
+import { isSupportedLocale, supportedLocales } from "@/locale-config";
 
 export function generateStaticParams() {
   return supportedLocales.map((lang) => ({ lang }));
@@ -13,7 +9,7 @@ export function generateStaticParams() {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#007a60",
+  themeColor: "#2563eb",
 };
 
 export default async function LocaleLayout({
@@ -21,10 +17,9 @@ export default async function LocaleLayout({
   params,
 }: LayoutProps<"/[lang]">) {
   const { lang } = await params;
-  if (!isSupportedLocale(lang)) notFound();
 
   return (
-    <html lang={lang}>
+    <html lang={isSupportedLocale(lang) ? lang : "en-US"}>
       <body>{children}</body>
     </html>
   );

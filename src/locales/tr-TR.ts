@@ -1,20 +1,23 @@
+import { brand } from "@/brand";
 import { LocaleData } from "@/type";
 
 const localeData: LocaleData = {
-  logo: "PicSmaller",
-  siteTitle:
-    "PicSmaller - Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images intelligently",
+  logo: brand.en,
+  siteTitle: `${brand.en} - Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images intelligently`,
   siteDescription:
     "Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images securely in your browser. Batch resize, crop, and convert formats — all processed locally.",
   initial: "Başlatılıyor",
   previewHelp:
     "Sıkıştırma etkisini karşılaştırmak için bölme çizgisini sürükleyin: soldaki orijinal görüntü, sağdaki sıkıştırılmış görüntü",
   heif: {
-    previewUnavailable: "Tarayıcı özgün HEIC/HEIF görüntüsünü doğrudan gösteremediğinden önce-sonra karşılaştırması kullanılamıyor.",
-    originalPreserved: "Çıktı biçimi seçilmediği için özgün HEIC/HEIF dosyası korundu. Yeniden boyutlandırmak veya sıkıştırmak için bir çıktı biçimi seçin.",
+    previewUnavailable:
+      "Tarayıcı özgün HEIC/HEIF görüntüsünü doğrudan gösteremediğinden önce-sonra karşılaştırması kullanılamıyor.",
+    originalPreserved:
+      "Çıktı biçimi seçilmediği için özgün HEIC/HEIF dosyası korundu. Yeniden boyutlandırmak veya sıkıştırmak için bir çıktı biçimi seçin.",
   },
   errors: {
-    animatedUnsupported: "Animasyonlu AVIF/WebP sıkıştırması desteklenmez; orijinal dosya korundu.",
+    animatedUnsupported:
+      "Animasyonlu AVIF/WebP sıkıştırması desteklenmez; orijinal dosya korundu.",
   },
   uploadCard: {
     title: "Resimlerinizi buraya bırakın",
@@ -44,7 +47,7 @@ const localeData: LocaleData = {
   optionPannel: {
     failTip:
       "Daha küçük olamaz, lütfen parametreleri ayarlayın ve tekrar deneyin.",
-    help: "PicSmaller, toplu resim sıkıştırma uygulamasıdır. Seçeneklerde yapılan değişiklikler tüm resimlere uygulanacaktır.",
+    help: `${brand.en}, toplu resim sıkıştırma uygulamasıdır. Seçeneklerde yapılan değişiklikler tüm resimlere uygulanacaktır.`,
     resizeLable: "Görüntüyü yeniden boyutlandır",
     jpegLable: "JPEG/WEBP parametreleri",
     pngLable: "PNG parametreleri",
@@ -69,7 +72,8 @@ const localeData: LocaleData = {
     confirmBtn: "Seçenekleri uygula",
     qualityTitle: "Çıktının kalitesini ayarla (0-1)",
     extremeMode: "Ekstrem mod",
-    extremeModeHint: "İşlem daha yavaş olur, ancak genellikle daha küçük bir dosya üretir.",
+    extremeModeHint:
+      "İşlem daha yavaş olur, ancak genellikle daha küçük bir dosya üretir.",
     colorsDesc: "Çıktınun renk sayısını ayarla (2-256)",
     pngDithering: "Dithering katsayısını ayarla (0-1)",
     gifDithering: "Dithering'i aç",

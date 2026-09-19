@@ -1,48 +1,77 @@
-@import url("https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap");
-
 :root {
-  --color-primary: #172033;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --color-primary: #182230;
   --color-on-primary: #ffffff;
-  --color-secondary: #007a60;
-  --color-secondary-hover: #006b54;
-  --color-action-soft: #e8f5f1;
+  --color-secondary: #2563eb;
+  --color-secondary-hover: #1d4ed8;
+  --color-action-soft: #eff6ff;
   --color-surface: #ffffff;
-  --color-surface-subtle: #f5f7fa;
-  --color-surface-muted: #eef2f6;
+  --color-surface-subtle: #f7f9fc;
+  --color-surface-muted: #f0f3f8;
   --color-background: var(--color-surface-subtle);
-  --color-foreground: #172033;
-  --color-text-muted: #64748b;
-  --color-border: #d5dde7;
-  --color-border-strong: #98aaa6;
+  --color-foreground: #182230;
+  --color-text-muted: #5c6b80;
+  --color-border: #e2e8f0;
+  --color-border-strong: #94a3b8;
   --color-success: #15803d;
   --color-success-soft: #f0fdf4;
   --color-warning: #9a6700;
   --color-warning-soft: #fffbeb;
   --color-destructive: #c2414b;
-  --color-overlay: rgba(23, 32, 51, .46);
-  --shadow-menu: 0 16px 40px rgba(23, 50, 77, .16), 0 3px 10px rgba(23, 50, 77, .08);
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --color-overlay: rgba(23, 32, 51, 0.46);
+  --shadow-menu: 0 16px 40px rgba(23, 50, 77, 0.16),
+    0 3px 10px rgba(23, 50, 77, 0.08);
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-full: 999px;
   --color-muted: var(--color-surface-muted);
   --color-accent: var(--color-secondary);
   --color-ring: var(--color-secondary);
   color: var(--color-foreground);
   background: var(--color-background);
-  font-family: "Public Sans", "Microsoft YaHei", sans-serif;
+  font-family: var(--font-sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
 }
 
-* { box-sizing: border-box; }
-html { scroll-padding-top: 88px; }
-body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--color-background); }
-button, input, select { font: inherit; }
-button, a, [role="button"] { -webkit-tap-highlight-color: transparent; }
-button, a { cursor: pointer; }
-img { max-width: 100%; }
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-padding-top: 88px;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--color-background);
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button,
+a,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a {
+  cursor: pointer;
+}
+img {
+  max-width: 100%;
+}
 
 .button {
   min-height: 44px;
@@ -58,21 +87,57 @@ img { max-width: 100%; }
   text-decoration: none;
   font-weight: 700;
   font-size: 14px;
-  transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
-.button:hover:not(:disabled) { border-color: var(--color-border-strong); background: var(--color-surface-subtle); transform: translateY(-1px); }
-.button:disabled { opacity: .5; cursor: not-allowed; }
+.button:hover:not(:disabled) {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-subtle);
+  transform: translateY(-1px);
+}
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 /* Primary action: filled with the accent color.
    .buttonAccent is kept as an alias so existing call sites
    share the exact same visual language. */
-.buttonPrimary, .buttonAccent { color: #fff; background: var(--color-secondary); border-color: var(--color-secondary); }
-.buttonPrimary:hover:not(:disabled), .buttonAccent:hover:not(:disabled) { color: #fff; background: var(--color-secondary-hover); border-color: var(--color-secondary-hover); }
-.buttonLarge { min-height: 50px; padding: 0 20px; }
+.buttonPrimary,
+.buttonAccent {
+  color: #fff;
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+.buttonPrimary:hover:not(:disabled),
+.buttonAccent:hover:not(:disabled) {
+  color: #fff;
+  background: var(--color-secondary-hover);
+  border-color: var(--color-secondary-hover);
+}
+.buttonLarge {
+  min-height: 50px;
+  padding: 0 20px;
+}
 
-:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-secondary) 45%, transparent); outline-offset: 2px; }
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-secondary) 45%, transparent);
+  outline-offset: 2px;
+}
 
-.__initial { height: 100vh; display: grid; place-items: center; }
-.__initial > div { display: grid; justify-items: center; gap: 14px; color: var(--color-text-muted); }
+.__initial {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+.__initial > div {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  color: var(--color-text-muted);
+}
 
 .globalNotFound {
   min-height: 100vh;
@@ -82,10 +147,31 @@ img { max-width: 100%; }
   justify-items: center;
   text-align: center;
 }
-.globalNotFound strong { color: var(--color-secondary); font-family: "Libre Bodoni", serif; font-size: 92px; line-height: 1; }
-.globalNotFound h1 { margin: 20px 0 8px; font-size: 28px; }
-.globalNotFound p { margin: 0 0 28px; color: var(--color-text-muted); }
+.globalNotFound strong {
+  color: var(--color-secondary);
+  font-family: var(--font-sans);
+  font-size: 92px;
+  line-height: 1;
+}
+.globalNotFound h1 {
+  margin: 20px 0 8px;
+  font-size: 28px;
+}
+.globalNotFound p {
+  margin: 0 0 28px;
+  color: var(--color-text-muted);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+.globalNotFound > img {
+  margin-bottom: 24px;
 }

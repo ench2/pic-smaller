@@ -1,17 +1,14 @@
+import { brand } from "@/brand";
+import { NotFound } from "@/components/NotFound";
 import "@/main.scss";
+
+export const metadata = { title: `404 · ${brand.en}` };
 
 export default function GlobalNotFound() {
   return (
     <html lang="en-US">
       <body>
-        <main className="globalNotFound">
-          <strong>404</strong>
-          <h1>Page not found</h1>
-          <p>The page you requested does not exist.</p>
-          <a className="button buttonPrimary" href="/en-US/">
-            Back to PicSmaller
-          </a>
-        </main>
+        <NotFound />
       </body>
     </html>
   );

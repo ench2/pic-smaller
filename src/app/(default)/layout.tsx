@@ -8,7 +8,7 @@ export const metadata = createLocaleMetadata("en-US", enUS);
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#007a60",
+  themeColor: "#2563eb",
 };
 
 export default function DefaultLayout({

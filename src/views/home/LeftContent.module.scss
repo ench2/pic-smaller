@@ -1,4 +1,5 @@
 .content {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   min-width: 0;
   min-height: 0;
   display: flex;
@@ -16,8 +17,14 @@
   align-items: center;
   gap: 12px;
 
-  > div { display: flex; gap: 8px; }
-  > input { display: none; }
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  > input {
+    display: none;
+  }
 }
 
 .iconButton,
@@ -31,13 +38,23 @@
   color: var(--color-primary);
   background: var(--color-surface);
   cursor: pointer;
-  transition: background .2s ease, border-color .2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 
-  &:hover:not(:disabled) { background: var(--color-action-soft); border-color: var(--color-border-strong); }
-  &:disabled { opacity: .5; cursor: not-allowed; }
+  &:hover:not(:disabled) {
+    background: var(--color-action-soft);
+    border-color: var(--color-border-strong);
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
-.dangerButton { color: var(--color-destructive); }
+.dangerButton {
+  color: var(--color-destructive);
+}
 
 .list {
   min-height: 0;
@@ -51,7 +68,7 @@
   content-visibility: auto;
   contain-intrinsic-size: auto 92px;
   display: grid;
-  grid-template-columns: 64px minmax(160px, 1fr) 130px 90px auto;
+  grid-template-columns: 64px minmax(80px, 1fr) 88px 60px auto;
   align-items: center;
   gap: 16px;
   padding: 14px 0;
@@ -69,20 +86,84 @@
   overflow: hidden;
   cursor: pointer;
 
-  img { width: 100%; height: 100%; object-fit: cover; }
-  i { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; background: var(--color-overlay); opacity: 0; transition: opacity .2s ease; }
-  &:hover i { opacity: 1; }
-  &:disabled { cursor: default; }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  i {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: var(--color-overlay);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  &:hover i {
+    opacity: 1;
+  }
+  &:disabled {
+    cursor: default;
+  }
 }
 
-.fileInfo { min-width: 0; }
-.fileName { display: flex; align-items: center; gap: 8px; color: var(--color-primary); svg { color: var(--color-success); flex: none; } strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } }
-.fileMeta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 8px; color: var(--color-text-muted); font-size: 13px; font-variant-numeric: tabular-nums; }
-.outputInfo, .rate { display: grid; gap: 5px; font-variant-numeric: tabular-nums; small, span { color: var(--color-text-muted); font-size: 12px; } }
-.success { color: var(--color-success); }
-.warning { color: var(--color-destructive); }
-.itemActions { display: flex; gap: 6px; }
-.errorIcon { color: var(--color-destructive) !important; flex: none; }
+.fileInfo {
+  min-width: 0;
+}
+.fileName {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  svg {
+    color: var(--color-success);
+    flex: none;
+  }
+  strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+.fileMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 8px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.outputInfo,
+.rate {
+  display: grid;
+  gap: 5px;
+  font-variant-numeric: tabular-nums;
+  small,
+  span {
+    color: var(--color-text-muted);
+    font-size: 12px;
+  }
+}
+.success {
+  color: var(--color-success);
+}
+.warning {
+  color: var(--color-warning);
+}
+.preservedIcon {
+  color: var(--color-warning) !important;
+}
+.itemActions {
+  display: flex;
+  gap: 6px;
+}
+.errorIcon {
+  color: var(--color-destructive) !important;
+  flex: none;
+}
 .errorTooltip,
 .noticeTooltip {
   grid-column: 1 / -1;
@@ -96,10 +177,17 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
 
-  svg { flex: none; margin-top: 1px; }
-  span { word-break: break-all; }
+  svg {
+    flex: none;
+    margin-top: 1px;
+  }
+  span {
+    word-break: break-all;
+  }
 }
-.noticeTooltip { color: var(--color-warning); }
+.noticeTooltip {
+  color: var(--color-warning);
+}
 .toast {
   position: fixed;
   z-index: 100;
@@ -120,24 +208,68 @@
   transform: translateX(-50%);
   font-size: 14px;
   line-height: 1.5;
-  svg { flex: none; margin-top: 2px; color: var(--color-warning); }
+  svg {
+    flex: none;
+    margin-top: 2px;
+    color: var(--color-warning);
+  }
 }
-.spin { animation: spin .8s linear infinite; color: var(--color-secondary) !important; }
-.progress { margin-top: auto; padding: 14px 16px 16px; border-top: 1px solid var(--color-border); background: var(--color-surface-subtle); }
+.spin {
+  animation: spin 0.8s linear infinite;
+  color: var(--color-secondary) !important;
+}
+.progress {
+  margin-top: auto;
+  padding: 14px 16px 16px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+}
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 @media (max-width: 760px) {
-  .toolbar { align-items: stretch; flex-direction: column; > div { justify-content: space-between; } }
-  .list { padding: 6px 12px; }
-  .resultItem { grid-template-columns: 58px minmax(0, 1fr) auto; gap: 10px; }
-  .preview { width: 58px; height: 58px; }
-  .outputInfo { grid-column: 2; }
-  .rate { grid-column: 3; grid-row: 2; text-align: right; }
-  .itemActions { grid-column: 3; grid-row: 1; }
+  .toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    > div {
+      justify-content: space-between;
+    }
+  }
+  .list {
+    padding: 6px 12px;
+  }
+  .resultItem {
+    grid-template-columns: 58px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+  .preview {
+    width: 58px;
+    height: 58px;
+  }
+  .outputInfo {
+    grid-column: 2;
+  }
+  .rate {
+    grid-column: 3;
+    grid-row: 2;
+    text-align: right;
+  }
+  .itemActions {
+    grid-column: 3;
+    grid-row: 1;
+  }
 }
 
 @media (max-width: 480px) {
-  .toolbar :global(.button) { padding: 0 10px; font-size: 12px; }
-  .resultItem { align-items: start; }
+  .toolbar :global(.button) {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+  .resultItem {
+    align-items: start;
+  }
 }

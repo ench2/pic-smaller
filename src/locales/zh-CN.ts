@@ -1,24 +1,26 @@
+import { brand } from "@/brand";
 import { LocaleData } from "@/type";
 
 const localeData: LocaleData = {
-  logo: "图小小",
-  siteTitle:
-    "图小小 - 在线批量压缩 JPEG、PNG、WEBP、AVIF、HEIC、SVG 和 GIF 图片",
+  logo: brand.zhCN,
+  siteTitle: `${brand.zhCN} - 在线批量压缩 JPEG、PNG、WEBP、AVIF、HEIC、SVG 和 GIF 图片`,
   siteDescription:
     "在浏览器中安全压缩 JPEG、PNG、WEBP、AVIF、HEIC、SVG 和 GIF 图片。批量缩放、裁剪和格式转换，全程本地处理，无需上传。",
   initial: "初始化中",
   previewHelp: "拖动分割线对比压缩效果：左边是原始图，右边是压缩图",
   heif: {
-    previewUnavailable: "浏览器无法直接显示 HEIC/HEIF 原图，因此暂不支持压缩前后对比。",
-    originalPreserved: "未指定输出格式，已保留 HEIC/HEIF 原文件；如需缩放或压缩，请选择输出格式。",
+    previewUnavailable:
+      "浏览器无法直接显示 HEIC/HEIF 原图，因此暂不支持压缩前后对比。",
+    originalPreserved:
+      "未指定输出格式，已保留 HEIC/HEIF 原文件；如需缩放或压缩，请选择输出格式。",
   },
   errors: {
     animatedUnsupported: "不支持压缩动画 AVIF/WebP 图片，已保留原文件。",
   },
   uploadCard: {
-    title: "选取图片到这里，支持拖拽图片和文件夹",
-    subTitle: "开源的批量图片压缩工具，支持 %s 格式",
-    pasteHint: "提示：您也可以复制图片后按 Ctrl+V (Cmd+V) 粘贴",
+    title: "选择图片",
+    subTitle: "支持 %s，拖入图片或文件夹即可开始",
+    pasteHint: "也可以按 Ctrl+V / ⌘V 粘贴图片",
   },
   listAction: {
     batchAppend: "批量添加",
@@ -42,7 +44,7 @@ const localeData: LocaleData = {
   },
   optionPannel: {
     failTip: "无法更小，请调整参数后重试",
-    help: "图小小是一款批量图片压缩应用程序，对选项的修改将应用到所有图片上",
+    help: `${brand.zhCN}是一款批量图片压缩应用程序，对选项的修改将应用到所有图片上`,
     resizeLable: "调整图片尺寸",
     jpegLable: "JPEG/WEBP参数",
     pngLable: "PNG参数",

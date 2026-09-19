@@ -1,22 +1,25 @@
+import { brand } from "@/brand";
 // 韩语
 
 import { LocaleData } from "@/type";
 
 const localeData: LocaleData = {
-  logo: "PicSmaller",
-  siteTitle:
-    "PicSmaller - Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images intelligently",
+  logo: brand.en,
+  siteTitle: `${brand.en} - Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images intelligently`,
   siteDescription:
     "Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images securely in your browser. Batch resize, crop, and convert formats — all processed locally.",
   initial: "초기화 중",
   previewHelp:
     "압축 효과를 비교하려면 구분선을 드래그하세요. 왼쪽은 원본 이미지, 오른쪽은 압축된 이미지입니다.",
   heif: {
-    previewUnavailable: "브라우저에서 원본 HEIC/HEIF 이미지를 직접 표시할 수 없어 압축 전후 비교를 사용할 수 없습니다.",
-    originalPreserved: "출력 형식을 선택하지 않아 원본 HEIC/HEIF 파일을 유지했습니다. 크기 조정이나 압축을 하려면 출력 형식을 선택하세요.",
+    previewUnavailable:
+      "브라우저에서 원본 HEIC/HEIF 이미지를 직접 표시할 수 없어 압축 전후 비교를 사용할 수 없습니다.",
+    originalPreserved:
+      "출력 형식을 선택하지 않아 원본 HEIC/HEIF 파일을 유지했습니다. 크기 조정이나 압축을 하려면 출력 형식을 선택하세요.",
   },
   errors: {
-    animatedUnsupported: "애니메이션 AVIF/WebP 압축은 지원되지 않습니다. 원본 파일을 유지했습니다.",
+    animatedUnsupported:
+      "애니메이션 AVIF/WebP 압축은 지원되지 않습니다. 원본 파일을 유지했습니다.",
   },
   uploadCard: {
     title: "이미지 파일을 여기에 넣기",
@@ -46,7 +49,7 @@ const localeData: LocaleData = {
   },
   optionPannel: {
     failTip: "더 작게 만들 수 없습니다. 매개변수를 조정하고 다시 시도하세요.",
-    help: "PicSmaller는 옵션에 대한 수정 사항이 모든 이미지에 적용되는 일괄 이미지 압축 응용 프로그램입니다.",
+    help: `${brand.en}는 옵션에 대한 수정 사항이 모든 이미지에 적용되는 일괄 이미지 압축 응용 프로그램입니다.`,
     resizeLable: "이미지 크기 조정",
     jpegLable: "JPEG/WEBP 매개변수",
     pngLable: "PNG 매개변수",
@@ -71,7 +74,8 @@ const localeData: LocaleData = {
     confirmBtn: "옵션 적용",
     qualityTitle: "출력 이미지 품질 설정(0-1)",
     extremeMode: "극한 모드",
-    extremeModeHint: "처리 속도는 느려지지만 일반적으로 파일 크기가 더 작아집니다.",
+    extremeModeHint:
+      "처리 속도는 느려지지만 일반적으로 파일 크기가 더 작아집니다.",
     colorsDesc: "출력 색상 수 설정(2-256)",
     pngDithering: "디더링 계수 설정(0-1)",
     gifDithering: "디더링 켜기",

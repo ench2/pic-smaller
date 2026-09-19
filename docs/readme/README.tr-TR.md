@@ -1,21 +1,11 @@
-# Pic Smaller (图小小)
+# LiteFrame (轻帧)
 
 [English](../../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja-JP.md) · [한국어](README.ko-KR.md) · [Français](README.fr-FR.md) · [Español](README.es-ES.md) · [فارسی](README.fa-IR.md) · [Türkçe](README.tr-TR.md)
 
-> [!IMPORTANT]
-> ### Pic Smaller Desktop — Amiral Gemisi Sürüm
-> **Ödünsüz yerel güç, tarayıcının ötesinde.**
->
-> Pic Smaller Desktop amiral gemisi sürümüyle iş akışınızı yükseltin. Yetinmeyi reddeden profesyoneller için inşa edilmiş özel bir yerel uygulama — devasa dosyaları ve tüm klasör kütüphanelerini zahmetsizce işler, 16'dan fazla görüntü formatını destekler ve üstün işleme performansı sunar. Arka plan kaldırma, filigran kaldırma ve yüksek kaliteli görüntü büyütme gibi gelişmiş yapay zeka araçlarıyla deneyimi tamamlayın.
->
-> [![Pic Smaller Desktop'u Keşfedin](https://img.shields.io/badge/Explore_Pic_Smaller_Desktop-00876c?style=for-the-badge)](https://desktop.picsmaller.com/)
-
-Pic Smaller, tamamen tarayıcıda çalışan ücretsiz ve açık kaynaklı bir toplu görüntü
+LiteFrame, tamamen tarayıcıda çalışan ücretsiz ve açık kaynaklı bir toplu görüntü
 sıkıştırıcıdır. Görüntüler Web Workers, WebAssembly, Canvas ve tarayıcı kodekleriyle
 yerel olarak işlenir. Dosyalar hiçbir zaman bir uygulama sunucusuna yüklenmez.
-
-Barındırılan uygulamayı [picsmaller.com](https://picsmaller.com/) veya
-[www.picsmaller.com](https://www.picsmaller.com/) adresinden kullanabilirsiniz.
+[piczip.ajutx.com](https://piczip.ajutx.com/)
 
 ## Özellikler
 
@@ -29,7 +19,7 @@ Barındırılan uygulamayı [picsmaller.com](https://picsmaller.com/) veya
 
 ## Ekran Görüntüsü
 
-![Pic Smaller sıkıştırma çalışma alanı](../demo1.png)
+![LiteFrame sıkıştırma çalışma alanı](../liteframe-workspace.png)
 
 Temel çalışma alanı, toplu girdiyi, sıkıştırma sonuçlarını, çıktı ayarlarını ve
 indirme eylemlerini tek bir görünümde birleştirir.
@@ -132,7 +122,7 @@ yalnızca belgelenmiş yer tutucu adları sağlayın.
 
 ## Lisans
 
-Pic Smaller, [MIT Lisansı](./LICENSE) altında sunulmaktadır.
+LiteFrame, [MIT Lisansı](./LICENSE) altında sunulmaktadır.
 
 ## Teşekkürler
 
@@ -140,3 +130,9 @@ Pic Smaller, [MIT Lisansı](./LICENSE) altında sunulmaktadır.
 - [heic-to](https://github.com/hoppergee/heic-to) — tarayıcı tarafında HEIC ve HEIF çözümleme için.
 - [SVGO](https://github.com/svg/svgo) — SVG optimizasyonu için.
 - [gifsicle-wasm-browser](https://github.com/renzhezhilu/gifsicle-wasm-browser) — GIF sıkıştırma için.
+
+## Upstream attribution
+
+LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
+The original MIT license and copyright notices are retained. Repository names,
+deployment identifiers, and browser storage keys remain unchanged for compatibility.

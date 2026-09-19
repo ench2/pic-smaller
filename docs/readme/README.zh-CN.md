@@ -1,21 +1,11 @@
-# Pic Smaller (图小小)
+# LiteFrame (轻帧)
 
 [English](../../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja-JP.md) · [한국어](README.ko-KR.md) · [Français](README.fr-FR.md) · [Español](README.es-ES.md) · [فارسی](README.fa-IR.md) · [Türkçe](README.tr-TR.md)
 
-> [!IMPORTANT]
-> ### Pic Smaller Desktop — 旗舰版
-> **不妥协的原生性能，超越浏览器限制。**
->
-> 使用旗舰版 Pic Smaller Desktop 升级您的工作流。这是一款专为追求卓越的专业人士打造的原生桌面应用——轻松驾驭超大文件与海量文件夹，支持 16+ 图片格式，并带来更卓越的处理性能。搭配全套 AI 工具：背景移除、水印移除与高保真图像放大，让体验更加完整。
->
-> [![探索 Pic Smaller Desktop](https://img.shields.io/badge/Explore_Pic_Smaller_Desktop-00876c?style=for-the-badge)](https://desktop.picsmaller.com/)
-
-Pic Smaller 是一款免费、开源的批量图片压缩工具，完全运行在浏览器中。图片通过
+LiteFrame 是一款免费、开源的批量图片压缩工具，完全运行在浏览器中。图片通过
 Web Workers、WebAssembly、Canvas 及浏览器编解码器在本地完成处理，文件绝不会
 上传到任何应用服务器。
-
-您可以使用托管版本 [picsmaller.com](https://picsmaller.com/) 或
-[www.picsmaller.com](https://www.picsmaller.com/)。
+[piczip.ajutx.com](https://piczip.ajutx.com/)
 
 ## 功能特性
 
@@ -29,7 +19,7 @@ Web Workers、WebAssembly、Canvas 及浏览器编解码器在本地完成处理
 
 ## 界面截图
 
-![Pic Smaller 压缩工作区](../demo1.png)
+![LiteFrame 压缩工作区](../liteframe-workspace.png)
 
 核心工作区将批量输入、压缩结果、输出设置和下载操作整合在一个视图内。
 
@@ -127,7 +117,7 @@ Cloudflare 令牌、`.env` 文件、`.dev.vars`、私钥或本地 Wrangler 状�
 
 ## 许可证
 
-Pic Smaller 基于 [MIT 许可证](./LICENSE) 发布。
+LiteFrame 基于 [MIT 许可证](./LICENSE) 发布。
 
 ## 致谢
 
@@ -135,3 +125,20 @@ Pic Smaller 基于 [MIT 许可证](./LICENSE) 发布。
 - [heic-to](https://github.com/hoppergee/heic-to) 提供浏览器端 HEIC 和 HEIF 解码。
 - [SVGO](https://github.com/svg/svgo) 提供 SVG 优化。
 - [gifsicle-wasm-browser](https://github.com/renzhezhilu/gifsicle-wasm-browser) 提供 GIF 压缩。
+
+## Upstream attribution
+
+LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
+The original MIT license and copyright notices are retained. Repository names,
+deployment identifiers, and browser storage keys remain unchanged for compatibility.
+
+## 品牌与浏览器回归
+
+正式站点为 https://piczip.ajutx.com/。品牌名称集中在 `src/brand.ts`，
+SEO、robots 与站点地图共用 `src/locale-config.ts`。保留原处理引擎、路由、
+本地设置存储键、原项目来源和许可证，不包含桌面产品推广。
+
+依次运行 `npm test`、`npm run lint`、`npm run build`。
+首次运行浏览器测试前执行 `npx playwright install chromium`，然后运行
+`npm run test:browser`。Windows 也可设置环境变量 `PLAYWRIGHT_CHANNEL=msedge`
+复用已安装的 Edge。截图和失败追踪输出到被忽略的 `test-results/`。

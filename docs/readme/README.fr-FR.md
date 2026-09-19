@@ -1,22 +1,12 @@
-# Pic Smaller (图小小)
+# LiteFrame (轻帧)
 
 [English](../../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja-JP.md) · [한국어](README.ko-KR.md) · [Français](README.fr-FR.md) · [Español](README.es-ES.md) · [فارسی](README.fa-IR.md) · [Türkçe](README.tr-TR.md)
 
-> [!IMPORTANT]
-> ### Pic Smaller Desktop — L'Édition Phare
-> **La puissance native sans compromis, au-delà du navigateur.**
->
-> Élevez votre flux de travail avec l'édition phare Pic Smaller Desktop. Une application native dédiée, conçue pour les professionnels qui refusent les compromis — elle manipule avec aisance les fichiers volumineux et les bibliothèques entières de dossiers, prend en charge plus de 16 formats d'image et offre des performances de traitement supérieures. Complétez l'expérience avec une suite avancée d'outils IA : suppression d'arrière-plan, suppression de filigrane et upscaling haute fidélité.
->
-> [![Découvrir Pic Smaller Desktop](https://img.shields.io/badge/Explore_Pic_Smaller_Desktop-00876c?style=for-the-badge)](https://desktop.picsmaller.com/)
-
-Pic Smaller est un compresseur d'images par lot gratuit et open source qui s'exécute
+LiteFrame est un compresseur d'images par lot gratuit et open source qui s'exécute
 entièrement dans le navigateur. Les images sont traitées localement avec les
 Web Workers, WebAssembly, Canvas et les codecs du navigateur. Les fichiers ne sont
 jamais téléversés vers un serveur applicatif.
-
-Utilisez l'application hébergée sur [picsmaller.com](https://picsmaller.com/) ou
-[www.picsmaller.com](https://www.picsmaller.com/).
+[piczip.ajutx.com](https://piczip.ajutx.com/)
 
 ## Fonctionnalités
 
@@ -30,7 +20,7 @@ Utilisez l'application hébergée sur [picsmaller.com](https://picsmaller.com/) 
 
 ## Capture d'écran
 
-![Espace de travail Pic Smaller](../demo1.png)
+![Espace de travail LiteFrame](../liteframe-workspace.png)
 
 L'espace de travail principal intègre l'entrée par lot, les résultats de compression,
 les paramètres de sortie et les actions de téléchargement dans une seule vue.
@@ -135,7 +125,7 @@ et ne fournissez que des noms de substitution documentés dans un fichier
 
 ## Licence
 
-Pic Smaller est disponible sous la [licence MIT](./LICENSE).
+LiteFrame est disponible sous la [licence MIT](./LICENSE).
 
 ## Remerciements
 
@@ -143,3 +133,9 @@ Pic Smaller est disponible sous la [licence MIT](./LICENSE).
 - [heic-to](https://github.com/hoppergee/heic-to) pour le décodage HEIC/HEIF côté navigateur.
 - [SVGO](https://github.com/svg/svgo) pour l'optimisation SVG.
 - [gifsicle-wasm-browser](https://github.com/renzhezhilu/gifsicle-wasm-browser) pour la compression GIF.
+
+## Upstream attribution
+
+LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
+The original MIT license and copyright notices are retained. Repository names,
+deployment identifiers, and browser storage keys remain unchanged for compatibility.

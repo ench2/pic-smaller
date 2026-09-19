@@ -1,21 +1,11 @@
-# Pic Smaller (图小小)
+# LiteFrame (轻帧)
 
 [English](../../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja-JP.md) · [한국어](README.ko-KR.md) · [Français](README.fr-FR.md) · [Español](README.es-ES.md) · [فارسی](README.fa-IR.md) · [Türkçe](README.tr-TR.md)
 
-> [!IMPORTANT]
-> ### Pic Smaller Desktop — 플래그십 에디션
-> **타협 없는 네이티브 파워, 브라우저의 한계를 넘어서.**
->
-> 플래그십 Pic Smaller Desktop으로 워크플로를 한 단계 끌어올리세요. 타협을 거부하는 전문가를 위해 설계된 전용 네이티브 애플리케이션으로, 대용량 파일과 전체 폴더 라이브러리를 손쉽게 처리하며 16가지 이상의 이미지 형식을 지원하고 탁월한 처리 성능을 제공합니다. 배경 제거, 워터마크 제거, 고품질 이미지 업스케일링 등 고급 AI 도구 모음까지 갖추어 완벽한 경험을 선사합니다.
->
-> [![Pic Smaller Desktop 살펴보기](https://img.shields.io/badge/Explore_Pic_Smaller_Desktop-00876c?style=for-the-badge)](https://desktop.picsmaller.com/)
-
-Pic Smaller는 전적으로 브라우저에서 실행되는 무료 오픈소스 배치 이미지 압축 도구입니다.
+LiteFrame는 전적으로 브라우저에서 실행되는 무료 오픈소스 배치 이미지 압축 도구입니다.
 이미지는 Web Workers, WebAssembly, Canvas 및 브라우저 코덱을 통해 로컬에서 처리되며,
 파일이 애플리케이션 서버로 업로드되는 일은 절대 없습니다.
-
-호스팅된 앱은 [picsmaller.com](https://picsmaller.com/) 또는
-[www.picsmaller.com](https://www.picsmaller.com/)에서 사용할 수 있습니다.
+[piczip.ajutx.com](https://piczip.ajutx.com/)
 
 ## 기능
 
@@ -29,7 +19,7 @@ Pic Smaller는 전적으로 브라우저에서 실행되는 무료 오픈소스 
 
 ## 스크린샷
 
-![Pic Smaller 압축 작업 공간](../demo1.png)
+![LiteFrame 압축 작업 공간](../liteframe-workspace.png)
 
 핵심 작업 공간은 배치 입력, 압축 결과, 출력 설정 및 다운로드 작업을
 하나의 뷰에 통합합니다.
@@ -131,7 +121,7 @@ Traefik과 같은 TLS 종료 리버스 프록시 뒤에 컨테이너를 배치�
 
 ## 라이선스
 
-Pic Smaller는 [MIT 라이선스](./LICENSE)에 따라 제공됩니다.
+LiteFrame는 [MIT 라이선스](./LICENSE)에 따라 제공됩니다.
 
 ## 감사의 말
 
@@ -139,3 +129,9 @@ Pic Smaller는 [MIT 라이선스](./LICENSE)에 따라 제공됩니다.
 - [heic-to](https://github.com/hoppergee/heic-to) — 브라우저 측 HEIC 및 HEIF 디코딩.
 - [SVGO](https://github.com/svg/svgo) — SVG 최적화.
 - [gifsicle-wasm-browser](https://github.com/renzhezhilu/gifsicle-wasm-browser) — GIF 압축.
+
+## Upstream attribution
+
+LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
+The original MIT license and copyright notices are retained. Repository names,
+deployment identifiers, and browser storage keys remain unchanged for compatibility.

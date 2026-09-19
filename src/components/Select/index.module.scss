@@ -1,4 +1,7 @@
-.root { position: relative; width: 100%; }
+.root {
+  position: relative;
+  width: 100%;
+}
 
 .trigger {
   width: 100%;
@@ -15,10 +18,15 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
-  transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    background 0.16s ease;
 }
 
-.clearable { padding-right: 76px; }
+.clearable {
+  padding-right: 76px;
+}
 
 .root .clear {
   position: absolute;
@@ -36,13 +44,35 @@
   color: var(--color-text-muted);
   background: var(--color-surface-muted);
   cursor: pointer;
-  transition: color .16s ease, border-color .16s ease, background .16s ease, transform .16s ease;
+  transition:
+    color 0.16s ease,
+    border-color 0.16s ease,
+    background 0.16s ease,
+    transform 0.16s ease;
 }
 
-.clear::before { content: ""; position: absolute; left: -8px; top: 3px; bottom: 3px; border-left: 1px solid var(--color-border); }
-.clear:hover:not(:disabled) { color: var(--color-secondary); border-color: #b8d9d0; background: var(--color-action-soft); transform: translateY(-50%) scale(1.04); }
-.clear:focus-visible { outline: 2px solid var(--color-secondary); outline-offset: 1px; }
-.clear:disabled { opacity: .55; cursor: not-allowed; }
+.clear::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 3px;
+  bottom: 3px;
+  border-left: 1px solid var(--color-border);
+}
+.clear:hover:not(:disabled) {
+  color: var(--color-secondary);
+  border-color: #b8d9d0;
+  background: var(--color-action-soft);
+  transform: translateY(-50%) scale(1.04);
+}
+.clear:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 1px;
+}
+.clear:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 
 .trigger:hover:not(:disabled) {
   border-color: var(--color-border-strong);
@@ -56,16 +86,37 @@
   outline: 0;
 }
 
-.trigger[data-placeholder] { color: var(--color-text-muted); }
-.trigger:disabled { opacity: .55; cursor: not-allowed; }
-.icon { width: 24px; height: 28px; margin-left: auto; display: inline-grid; flex: none; place-items: center; color: var(--color-text-muted); border-radius: 4px; transition: color .16s ease, background .16s ease; }
-.trigger:hover:not(:disabled) .icon { background: var(--color-surface-muted); }
-.trigger[data-state="open"] .icon { color: var(--color-secondary); }
+.trigger[data-placeholder] {
+  color: var(--color-text-muted);
+}
+.trigger:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.icon {
+  width: 24px;
+  height: 28px;
+  margin-left: auto;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  color: var(--color-text-muted);
+  border-radius: 4px;
+  transition:
+    color 0.16s ease,
+    background 0.16s ease;
+}
+.trigger:hover:not(:disabled) .icon {
+  background: var(--color-surface-muted);
+}
+.trigger[data-state="open"] .icon {
+  color: var(--color-secondary);
+}
 
 .compact {
   width: auto;
   min-width: 118px;
-  min-height: 40px;
+  min-height: 44px;
   border-color: transparent;
   color: var(--color-primary);
   background: transparent;
@@ -74,7 +125,9 @@
   white-space: nowrap;
 }
 
-.compact + .clear { display: none; }
+.compact + .clear {
+  display: none;
+}
 
 .content {
   z-index: 220;
@@ -85,14 +138,16 @@
   border-radius: var(--radius-md);
   background: var(--color-surface);
   box-shadow: var(--shadow-menu);
-  animation: selectOpen .14s ease-out;
+  animation: selectOpen 0.16s ease-out;
 }
 
-.viewport { padding: 6px; }
+.viewport {
+  padding: 6px;
+}
 
 .item {
   position: relative;
-  min-height: 38px;
+  min-height: 44px;
   padding: 8px 36px 8px 10px;
   display: flex;
   align-items: center;
@@ -110,14 +165,29 @@
   background: var(--color-action-soft);
 }
 
-.item[data-state="checked"] { font-weight: 700; }
-.indicator { position: absolute; right: 10px; display: inline-flex; color: var(--color-secondary); }
+.item[data-state="checked"] {
+  font-weight: 700;
+}
+.indicator {
+  position: absolute;
+  right: 10px;
+  display: inline-flex;
+  color: var(--color-secondary);
+}
 
 @keyframes selectOpen {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .content { animation: none; }
+  .content {
+    animation: none;
+  }
 }

@@ -1,4 +1,4 @@
-export const siteUrl = "https://picsmaller.com";
+export const siteUrl = "https://piczip.ajutx.com";
 export const defaultLocale = "en-US";
 
 export const localeOptions = [

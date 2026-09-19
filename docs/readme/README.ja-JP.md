@@ -1,21 +1,11 @@
-# Pic Smaller (図小小)
+# LiteFrame (図小小)
 
 [English](../../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja-JP.md) · [한국어](README.ko-KR.md) · [Français](README.fr-FR.md) · [Español](README.es-ES.md) · [فارسی](README.fa-IR.md) · [Türkçe](README.tr-TR.md)
 
-> [!IMPORTANT]
-> ### Pic Smaller Desktop — フラッグシップエディション
-> **妥協なきネイティブパワー、ブラウザの限界を超えて。**
->
-> フラッグシップの Pic Smaller Desktop でワークフローを次の次元へ。一切の妥協を許さないプロフェッショナルのために構築された専用ネイティブアプリケーション——巨大なファイルやフォルダライブラリ全体を軽々と処理し、16 以上の画像フォーマットをサポート、卓越した処理性能を発揮します。背景除去、透かし除去、高精細アップスケーリングといった高度な AI ツール群で、体験を完成させてください。
->
-> [![Pic Smaller Desktop を探す](https://img.shields.io/badge/Explore_Pic_Smaller_Desktop-00876c?style=for-the-badge)](https://desktop.picsmaller.com/)
-
-Pic Smaller は完全にブラウザ上で動作するフリーでオープンソースのバッチ画像圧縮ツールです。
+LiteFrame は完全にブラウザ上で動作するフリーでオープンソースのバッチ画像圧縮ツールです。
 画像は Web Workers、WebAssembly、Canvas、そしてブラウザのコーデックを使って
 ローカルで処理され、ファイルがアプリケーションサーバーにアップロードされることは決してありません。
-
-ホスト版は [picsmaller.com](https://picsmaller.com/) または
-[www.picsmaller.com](https://www.picsmaller.com/) でご利用いただけます。
+[piczip.ajutx.com](https://piczip.ajutx.com/)
 
 ## 機能
 
@@ -29,7 +19,7 @@ Pic Smaller は完全にブラウザ上で動作するフリーでオープン�
 
 ## スクリーンショット
 
-![Pic Smaller 圧縮ワークスペース](../demo1.png)
+![LiteFrame 圧縮ワークスペース](../liteframe-workspace.png)
 
 コアワークスペースにはバッチ入力、圧縮結果、出力設定、ダウンロード操作が
 ひとつのビューに統合されています。
@@ -132,7 +122,7 @@ Traefik などの TLS 終端リバースプロキシの背後にコンテナを�
 
 ## ライセンス
 
-Pic Smaller は [MIT ライセンス](./LICENSE) の下で提供されています。
+LiteFrame は [MIT ライセンス](./LICENSE) の下で提供されています。
 
 ## 謝辞
 
@@ -140,3 +130,9 @@ Pic Smaller は [MIT ライセンス](./LICENSE) の下で提供されていま�
 - [heic-to](https://github.com/hoppergee/heic-to) — ブラウザ側の HEIC・HEIF デコード。
 - [SVGO](https://github.com/svg/svgo) — SVG 最適化。
 - [gifsicle-wasm-browser](https://github.com/renzhezhilu/gifsicle-wasm-browser) — GIF 圧縮。
+
+## Upstream attribution
+
+LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
+The original MIT license and copyright notices are retained. Repository names,
+deployment identifiers, and browser storage keys remain unchanged for compatibility.

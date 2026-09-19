@@ -1,21 +1,11 @@
-# Pic Smaller (图小小)
+# LiteFrame (轻帧)
 
 [English](../../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja-JP.md) · [한국어](README.ko-KR.md) · [Français](README.fr-FR.md) · [Español](README.es-ES.md) · [فارسی](README.fa-IR.md) · [Türkçe](README.tr-TR.md)
 
-> [!IMPORTANT]
-> ### Pic Smaller Desktop — نسخه پرچمدار
-> **قدرت بومی بی‌چون‌و‌چرا، فراتر از مرورگر.**
->
-> گردش کار خود را با نسخه پرچمدار Pic Smaller Desktop ارتقا دهید. یک برنامه بومی اختصاصی که برای حرفه‌ای‌هایی ساخته شده که به کمتر از بهترین رضایت نمی‌دهند — فایل‌های حجیم و کتابخانه‌های کامل پوشه‌ها را به آسانی پردازش می‌کند، بیش از ۱۶ فرمت تصویری را پشتیبانی کرده و عملکرد پردازشی برتری ارائه می‌دهد. مجموعه پیشرفته‌ای از ابزارهای هوش مصنوعی — حذف پس‌زمینه، حذف واترمارک و بزرگ‌نمایی با کیفیت بالا — تجربه را کامل می‌کند.
->
-> [![کاوش Pic Smaller Desktop](https://img.shields.io/badge/Explore_Pic_Smaller_Desktop-00876c?style=for-the-badge)](https://desktop.picsmaller.com/)
-
-Pic Smaller یک فشرده‌ساز تصاویر دسته‌ای رایگان و متن‌باز است که کاملاً در مرورگر
+LiteFrame یک فشرده‌ساز تصاویر دسته‌ای رایگان و متن‌باز است که کاملاً در مرورگر
 اجرا می‌شود. تصاویر به صورت محلی با Web Workers، WebAssembly، Canvas و کدک‌های
 مرورگر پردازش می‌شوند. فایل‌ها هرگز به سرور برنامه آپلود نمی‌شوند.
-
-از نسخه میزبانی‌شده در [picsmaller.com](https://picsmaller.com/) یا
-[www.picsmaller.com](https://www.picsmaller.com/) استفاده کنید.
+[piczip.ajutx.com](https://piczip.ajutx.com/)
 
 ## ویژگی‌ها
 
@@ -29,7 +19,7 @@ Pic Smaller یک فشرده‌ساز تصاویر دسته‌ای رایگان �
 
 ## تصویر
 
-![فضای کاری Pic Smaller](../demo1.png)
+![فضای کاری LiteFrame](../liteframe-workspace.png)
 
 فضای کاری اصلی، ورودی دسته‌ای، نتایج فشرده‌سازی، تنظیمات خروجی و اقدامات
 دانلود را در یک نما ادغام می‌کند.
@@ -131,7 +121,7 @@ docker run -d \
 
 ## مجوز
 
-Pic Smaller تحت [مجوز MIT](./LICENSE) در دسترس است.
+LiteFrame تحت [مجوز MIT](./LICENSE) در دسترس است.
 
 ## قدردانی
 
@@ -139,3 +129,9 @@ Pic Smaller تحت [مجوز MIT](./LICENSE) در دسترس است.
 - [heic-to](https://github.com/hoppergee/heic-to) برای رمزگشایی HEIC و HEIF در سمت مرورگر.
 - [SVGO](https://github.com/svg/svgo) برای بهینه‌سازی SVG.
 - [gifsicle-wasm-browser](https://github.com/renzhezhilu/gifsicle-wasm-browser) برای فشرده‌سازی GIF.
+
+## Upstream attribution
+
+LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
+The original MIT license and copyright notices are retained. Repository names,
+deployment identifiers, and browser storage keys remain unchanged for compatibility.
