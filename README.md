@@ -78,6 +78,13 @@ works with both Workers and Pages. `wrangler.jsonc` serves `out/`, resolves
 localized HTML routes, and uses the exported `404.html` for missing pages.
 Keep the generated `out/` directory and Cloudflare credentials out of Git.
 
+For a manual deployment from an authenticated development machine:
+
+```bash
+npm run build:pages
+npx wrangler deploy
+```
+
 ### Cloudflare Pages
 
 The public site uses Cloudflare Pages with the GitHub repository integration.
