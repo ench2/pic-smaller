@@ -22,6 +22,13 @@ export function createLocaleMetadata(
     metadataBase,
     title: localeData.siteTitle,
     description: localeData.siteDescription,
+    robots: { index: true, follow: true },
+    verification: {
+      google: "4OqUksuSHiPgaiX5ogytpBdvgq6qDOk6XnUMSe6lBN4",
+      other: {
+        "msvalidate.01": "0FA8918D1895135F5DBCAF3472286DD0",
+      },
+    },
     alternates: {
       canonical: getLocalePath(locale),
       languages: {

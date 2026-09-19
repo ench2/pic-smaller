@@ -51,8 +51,9 @@ npm run build:pages # Export the static Cloudflare Pages site to out/
 
 ### Cloudflare Workers
 
-The application can also run on Workers Static Assets without a Node.js server.
-Connect the repository to Workers Builds with these settings:
+The production domain `piczip.ajutx.com` currently serves the `pic-smaller`
+Worker using Workers Static Assets, without a Node.js server (verified 2026-09-19).
+For repository-driven Workers Builds, use these settings:
 
 | Setting | Value |
 | --- | --- |
@@ -77,8 +78,8 @@ npx wrangler deploy
 
 ### Cloudflare Pages
 
-The public site uses Cloudflare Pages with the GitHub repository integration.
-Cloudflare builds and deploys the site automatically with these settings:
+Cloudflare Pages is an alternative deployment target. For a Pages project with
+GitHub integration, use these settings:
 
 | Setting | Value |
 | --- | --- |
@@ -88,11 +89,11 @@ Cloudflare builds and deploys the site automatically with these settings:
 | Output directory | `out` |
 | Node.js version | `22` |
 
-Pushes to `master` update production. Pushes to `develop` create preview
-deployments. Other branches do not deploy automatically.
+With that Pages configuration, pushes to `master` update production and pushes
+to `develop` create preview deployments. Other branches do not deploy automatically.
 
-The Pages build removes Next.js's generated top-level `404.html`, allowing
-Cloudflare Pages to apply its native single-page application fallback.
+The export includes Next.js's generated `404.html`. The current Worker uses it
+for unknown routes; do not replace it with a single-page application fallback.
 
 ### Docker
 
@@ -160,6 +161,13 @@ LiteFrame is available under the [MIT License](./LICENSE).
 LiteFrame is based on [Pic Smaller](https://github.com/joye61/pic-smaller).
 The original MIT license and copyright notices are retained. Repository names,
 deployment identifiers, and browser storage keys remain unchanged for compatibility.
+
+## Google Analytics and monetization
+
+GA4 uses the public LiteFrame measurement ID `G-CMCBVVY1XF`. Analytics only loads
+in production builds after visitor opt-in; advertising consent is not granted.
+See [analytics setup, testing, privacy and AdSense status](docs/analytics.md).
+An empty `NEXT_PUBLIC_GA_MEASUREMENT_ID` at build time disables analytics.
 
 ## Brand and browser regression checks
 

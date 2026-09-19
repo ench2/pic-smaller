@@ -6,6 +6,8 @@ const isPagesBuild =
 
 const nextConfig: NextConfig = {
   output: isPagesBuild ? "export" : "standalone",
+  // Canonical/hreflang/sitemap all use /<locale>/; export matching index.html files.
+  trailingSlash: true,
   experimental: {
     globalNotFound: true,
   },

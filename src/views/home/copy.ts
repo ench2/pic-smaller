@@ -1,10 +1,9 @@
 import { brand } from "@/brand";
+import { getSeoCopy } from "@/seo-copy";
+import { internationalCopy } from "./international-copy";
 
 const en = {
   nav: ["Features", "Privacy"],
-  title: "Image work. Made lighter.",
-  summary:
-    "Batch compress, convert, resize, and crop. All locally in your browser.",
   tagline: "Lighter images. Your vision, intact.",
   proof: ["No sign-up", "Local processing", "Free & open source"],
   workspace: "Image workspace",
@@ -76,8 +75,6 @@ const en = {
 
 const zh: typeof en = {
   nav: ["功能", "隐私"],
-  title: "图片处理，轻一点。",
-  summary: "批量压缩、转换、缩放与裁剪，全程在浏览器本地完成。",
   tagline: brand.tagline,
   proof: ["无需注册", "本地处理", "免费开源"],
   workspace: "图片工作台",
@@ -126,8 +123,6 @@ const zh: typeof en = {
 
 const tw: typeof en = {
   nav: ["功能", "隱私"],
-  title: "圖片處理，輕一點。",
-  summary: "批次壓縮、轉換、縮放與裁剪，全程在瀏覽器本機完成。",
   tagline: "讓圖片輕一點，讓表達完整一點。",
   proof: ["無需註冊", "本機處理", "免費開源"],
   workspace: "圖片工作台",
@@ -171,6 +166,17 @@ const tw: typeof en = {
   attribution: "基於 Pic Smaller · MIT 授權",
 };
 
+export type HomeCopy = typeof en;
+
 export function getHomeCopy(locale?: string) {
-  return locale === "zh-CN" ? zh : locale === "zh-TW" ? tw : en;
+  const base =
+    locale === "zh-CN"
+      ? zh
+      : locale === "zh-TW"
+        ? tw
+        : locale &&
+            Object.prototype.hasOwnProperty.call(internationalCopy, locale)
+          ? internationalCopy[locale as keyof typeof internationalCopy]
+          : en;
+  return { ...base, ...getSeoCopy(locale) };
 }

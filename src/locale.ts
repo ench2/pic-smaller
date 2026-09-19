@@ -11,6 +11,10 @@ export const langList: Array<{ key: string; label: string }> = [
 
 export function changeLang(lang: string) {
   const locale = isSupportedLocale(lang) ? lang : defaultLocale;
-  window.localStorage.setItem("Pic-Smaller-Locale", locale);
+  try {
+    window.localStorage.setItem("Pic-Smaller-Locale", locale);
+  } catch {
+    // A saved preference is optional; changing language is not.
+  }
   window.location.assign(getLocalePath(locale));
 }

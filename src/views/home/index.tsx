@@ -27,7 +27,7 @@ import { LeftContent } from "./LeftContent";
 import { RightOption } from "./RightOption";
 import { Select } from "@/components/Select";
 import { brand, getBrandName } from "@/brand";
-import { siteUrl } from "@/locale-config";
+import { siteUrl, localeOptions, getLocalePath } from "@/locale-config";
 import { getHomeCopy } from "./copy";
 
 const featureIcons = [Minimize2, Layers, ArrowLeftRight, Crop, ScanEye, Zap];
@@ -35,11 +35,16 @@ const featureIcons = [Minimize2, Layers, ArrowLeftRight, Crop, ScanEye, Zap];
 const Home = observer(() => {
   useWorkerHandler();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [languageReady, setLanguageReady] = useState(false);
   const text = getHomeCopy(gstate.lang);
   const brandName = getBrandName(gstate.lang);
   const hasImages = homeState.list.size > 0;
+  const contentDirection = gstate.lang === "fa-IR" ? "rtl" : "ltr";
 
   useEffect(() => {
+    // Do not accept a language click before client event handlers are ready.
+    // The footer language anchors work even without JavaScript.
+    setLanguageReady(true);
     const handlePaste = async (event: ClipboardEvent) => {
       if (!hasImageInClipboard(event)) return;
       const target = event.target as HTMLElement | null;
@@ -72,14 +77,24 @@ const Home = observer(() => {
             <a href="#features" onClick={() => setMenuOpen(false)}>
               {text.nav[0]}
             </a>
+            <a href="#specs" onClick={() => setMenuOpen(false)}>
+              {text.specsNav}
+            </a>
+            <a href="#comparison" onClick={() => setMenuOpen(false)}>
+              {text.comparisonNav}
+            </a>
             <a href="#privacy" onClick={() => setMenuOpen(false)}>
               {text.nav[1]}
+            </a>
+            <a href="#faq" onClick={() => setMenuOpen(false)}>
+              {text.faqNav}
             </a>
           </nav>
           <div className={style.language}>
             <Languages size={18} aria-hidden="true" />
             <Select
               compact
+              disabled={!languageReady}
               value={gstate.lang}
               ariaLabel={text.language}
               options={langList.map((lang) => ({
@@ -109,9 +124,10 @@ const Home = observer(() => {
           className={`${style.hero} ${hasImages ? style.activeHero : ""}`}
           id="compressor"
         >
-          <div className={style.heroCopy}>
-            <span className={style.eyebrow}>LITEFRAME / IMAGE TOOLS</span>
+          <div className={style.heroCopy} dir={contentDirection}>
+            <span className={style.eyebrow}>{brandName}</span>
             <h1>{text.title}</h1>
+            <p className={style.subtitle}>{text.subtitle}</p>
             <p>{text.summary}</p>
           </div>
           <div className={style.workspace}>
@@ -142,7 +158,7 @@ const Home = observer(() => {
               <RightOption />
             </div>
           </div>
-          <ul className={style.heroProof}>
+          <ul className={style.heroProof} dir={contentDirection}>
             {text.proof.map((item) => (
               <li key={item}>
                 <Check size={15} aria-hidden="true" />
@@ -151,9 +167,12 @@ const Home = observer(() => {
             ))}
           </ul>
         </section>
-        <section className={style.features} id="features">
+        <section
+          className={style.features}
+          id="features"
+          dir={contentDirection}
+        >
           <div className={style.sectionHeading}>
-            <span>LESS FRICTION, MORE CREATION</span>
             <h2>{text.featuresTitle}</h2>
             <p>{text.featuresIntro}</p>
           </div>
@@ -172,9 +191,8 @@ const Home = observer(() => {
             })}
           </div>
         </section>
-        <section className={style.how}>
+        <section className={style.how} dir={contentDirection}>
           <div className={style.sectionHeading}>
-            <span>A SIMPLE WORKFLOW</span>
             <h2>{text.howTitle}</h2>
           </div>
           <ol>
@@ -189,12 +207,11 @@ const Home = observer(() => {
             ))}
           </ol>
         </section>
-        <section className={style.privacy} id="privacy">
+        <section className={style.privacy} id="privacy" dir={contentDirection}>
           <div className={style.privacyIcon}>
             <ShieldCheck size={40} aria-hidden="true" />
           </div>
           <div>
-            <span className={style.eyebrow}>PRIVATE BY DEFAULT</span>
             <h2>{text.privacyTitle}</h2>
             <p>{text.privacyText}</p>
             <ul>
@@ -207,6 +224,101 @@ const Home = observer(() => {
             </ul>
           </div>
         </section>
+        <section
+          className={style.specs}
+          id="specs"
+          dir={contentDirection}
+          aria-labelledby="specs-title"
+        >
+          <div className={style.sectionHeading}>
+            <h2 id="specs-title">{text.specsTitle}</h2>
+            <p>{text.specsIntro}</p>
+          </div>
+          <div className={style.tableWrapper}>
+            <table className={style.specsTable}>
+              <thead>
+                <tr>
+                  {text.specsHeaders.map((header) => (
+                    <th key={header}>{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {text.specs.map(
+                  ([format, input, output, engine, pipeline, alpha]) => (
+                    <tr key={format}>
+                      <td>
+                        <strong>{format}</strong>
+                      </td>
+                      <td>{input}</td>
+                      <td>{output}</td>
+                      <td>
+                        <code>{engine}</code>
+                      </td>
+                      <td>{pipeline}</td>
+                      <td>{alpha}</td>
+                    </tr>
+                  ),
+                )}
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section
+          className={style.comparison}
+          id="comparison"
+          dir={contentDirection}
+          aria-labelledby="comparison-title"
+        >
+          <div className={style.sectionHeading}>
+            <h2 id="comparison-title">{text.comparisonTitle}</h2>
+            <p>{text.comparisonIntro}</p>
+          </div>
+          <div className={style.tableWrapper}>
+            <table className={style.comparisonTable}>
+              <thead>
+                <tr>
+                  {text.comparisonHeaders.map((header, idx) => (
+                    <th
+                      key={header}
+                      className={idx === 1 ? style.highlightHeader : undefined}
+                    >
+                      {header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {text.comparison.map(([dimension, liteframe, cloud, single]) => (
+                  <tr key={dimension}>
+                    <td>
+                      <strong>{dimension}</strong>
+                    </td>
+                    <td className={style.highlightCell}>
+                      <b>{liteframe}</b>
+                    </td>
+                    <td>{cloud}</td>
+                    <td>{single}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section
+          className={style.faq}
+          id="faq"
+          dir={contentDirection}
+          aria-labelledby="faq-title"
+        >
+          <h2 id="faq-title">{text.faqTitle}</h2>
+          {text.faq.map(([question, answer]) => (
+            <article key={question}>
+              <h3>{question}</h3>
+              <p>{answer}</p>
+            </article>
+          ))}
+        </section>
       </main>
       <footer className={style.footer}>
         <div>
@@ -214,6 +326,7 @@ const Home = observer(() => {
           <p>{text.tagline}</p>
         </div>
         <div className={style.footerLinks}>
+          <a href="/privacy.html">{text.privacyLink}</a>
           <a href={brand.sourceUrl} target="_blank" rel="noreferrer">
             {text.source}
           </a>
@@ -221,6 +334,20 @@ const Home = observer(() => {
           <span>{new URL(siteUrl).host}</span>
         </div>
       </footer>
+      <nav className={style.localeLinks} aria-label={text.language}>
+        {localeOptions.map(({ key, label }) => (
+          <a
+            key={key}
+            href={getLocalePath(key)}
+            hrefLang={key}
+            lang={key}
+            dir={key === "fa-IR" ? "rtl" : "ltr"}
+            aria-current={gstate.lang === key ? "page" : undefined}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
       {homeState.compareId !== null && <Compare />}
     </div>
   );

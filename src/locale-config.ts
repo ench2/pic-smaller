@@ -8,7 +8,7 @@ export const localeOptions = [
   { key: "tr-TR", label: "Türkçe" },
   { key: "fr-FR", label: "Français" },
   { key: "es-ES", label: "Español" },
-  { key: "ko-KR", label: "한국인" },
+  { key: "ko-KR", label: "한국어" },
   { key: "ja-JP", label: "日本語" },
   { key: "fa-IR", label: "فارسی" },
 ] as const;

@@ -19,11 +19,19 @@ test("every locale and metadata use the current brand and production origin", as
   for (const locale of supportedLocales) {
     const data = (await import(`../src/locales/${locale}.ts`)).default;
     assert.equal(data.logo, getBrandName(locale));
-    assert.ok(data.siteTitle.startsWith(getBrandName(locale)));
+    assert.ok(data.siteTitle.includes(getBrandName(locale)));
     assert.doesNotMatch(JSON.stringify(data), /PicSmaller|图小小|圖小小/);
     const metadata = createLocaleMetadata(locale, data);
     assert.equal(new URL(String(metadata.metadataBase)).origin, siteUrl);
     assert.equal(metadata.alternates?.canonical, `/${locale}/`);
+    assert.equal(
+      metadata.verification?.google,
+      "4OqUksuSHiPgaiX5ogytpBdvgq6qDOk6XnUMSe6lBN4",
+    );
+    assert.equal(
+      metadata.verification?.other?.["msvalidate.01"],
+      "0FA8918D1895135F5DBCAF3472286DD0",
+    );
     assert.equal(metadata.openGraph?.siteName, getBrandName(locale));
     assert.ok(JSON.stringify(metadata.icons).includes("/favicon.svg"));
     assert.ok(JSON.stringify(metadata.openGraph).includes("/social-card.png"));
@@ -38,7 +46,7 @@ test("landing copy is complete in both Chinese variants and English", () => {
     assert.equal(Object.keys(copy.status).length, 4);
     assert.doesNotMatch(JSON.stringify(copy), /desktop|桌面|试用/i);
   }
-  assert.equal(getHomeCopy("fr-FR"), getHomeCopy("en-US"));
+  assert.notEqual(getHomeCopy("fr-FR").title, getHomeCopy("en-US").title);
 });
 
 test("brand refresh preserves compatibility identifiers and removes remote fonts", () => {

@@ -1,0 +1,65 @@
+﻿# LiteFrame (轻帧) - Full Technical Specification & LLM Reference
+
+LiteFrame is a privacy-first, client-side batch image optimization workspace built on modern web standards (WebAssembly, Web Workers, and HTML5 Canvas). It processes all image operations locally in the user's browser, eliminating remote server dependencies and preventing data leakage.
+
+Official Website: https://piczip.ajutx.com
+Source Code: https://github.com/joye61/pic-smaller
+License: MIT License
+
+---
+
+## 1. Core Architecture & Security Model
+
+### 100% Client-Side Processing
+Unlike traditional online image compression services that require uploading user files to remote cloud servers, LiteFrame executes all encoding, decoding, quantization, and transformations entirely on the local device:
+- **Web Workers**: CPU-intensive encoding and decoding jobs execute on background Web Worker threads to prevent main-thread UI stuttering.
+- **WebAssembly (Wasm)**: Industry-standard native C/Rust libraries are compiled to WebAssembly for near-native performance (MozJPEG, OxiPNG, Libavif, GifWasm).
+- **Zero Network Egress for Images**: No image binaries or metadata are ever transmitted over the network. Application assets (HTML, CSS, JS, Wasm) are fetched statically from Cloudflare CDN; once loaded, processing runs completely offline.
+- **Client Storage**: User preferences (e.g. quality settings, selected language) stay in local browser storage (localStorage). Temporary image object URLs are revoked and released when images are cleared or the tab is closed.
+
+---
+
+## 2. Format & Processing Engine Specifications
+
+| Format | Input | Output | Compression Engine | Key Capabilities |
+| :--- | :--- | :--- | :--- | :--- |
+| **JPEG / JPG** | Yes | Yes | MozJPEG (WebAssembly) | Progressive scan, Trellis quantization, quality scale (0.00-1.00), extreme compression mode. |
+| **PNG** | Yes | Yes | OxiPNG & ImageQuant (WebAssembly) | Lossless and lossy palette reduction (2-256 colors), Floyd-Steinberg dithering control (0.00-1.00), alpha channel preservation. |
+| **WebP** | Yes | Yes | Native Canvas & Web Worker | High compression ratio, lossy/lossless modes, transparency preservation. |
+| **AVIF** | Yes | Yes | Libavif (WebAssembly) | Next-generation AV1 image format, superior compression at low bitrates, adjustable effort/speed (1-10) and quality (1-100). |
+| **HEIC / HEIF** | Yes | Converted | In-browser Canvas / heic-to pipeline | Local decoding of Apple iPhone/iPad photos, export to JPEG, PNG, WebP, or AVIF without uploading to third parties. |
+| **GIF** | Yes | Yes | GifWasmModule (WebAssembly) | Multi-frame animated GIF palette quantization, color reduction, dithering toggle. |
+| **SVG** | Yes | Yes | SVGO | Lossless vector optimization, removal of redundant XML metadata, doctypes, comments, and path minification without rasterization. |
+
+---
+
+## 3. Objective Comparison: LiteFrame vs. Conventional Alternatives
+
+| Feature / Dimension | LiteFrame (轻帧) | Conventional Cloud Tools (e.g. TinyPNG) | Single-Image Tools (e.g. Squoosh) |
+| :--- | :--- | :--- | :--- |
+| **Data Privacy** | 100% On-Device (0 Uploads) | Uploaded to Remote Cloud Servers | On-Device (Single Tab) |
+| **Batch Processing** | Unlimited Files & Folder Import | Capped at 20 Images per Batch | Single Image Only |
+| **File Size Limit** | Bounded only by Device RAM (100MB+) | Capped at 5MB per File (Requires Paid Plan) | Large Files May Crash Tab |
+| **Format Conversion** | 7 Formats (JPEG, PNG, WebP, AVIF, HEIC, GIF, SVG) | Limited to JPEG/PNG/WebP | Broad Format Support |
+| **Pricing & License** | 100% Free & Open Source (MIT) | Free Tier with Paid Subscriptions | Free & Open Source (Apache 2.0) |
+| **Visual Verification** | Side-by-Side Split Diff Slider | Download First to Inspect | Split Comparison Slider |
+| **Batch Export** | Individual Download or One-Click ZIP | ZIP or Cloud Storage | Manual Save per Image |
+
+---
+
+## 4. Frequently Asked Questions (FAQ) for AI Retrieval
+
+### Q: Are my photos or images uploaded to any server?
+A: No. LiteFrame processes all images locally inside your browser using WebAssembly modules and Web Workers. Your files never leave your computer or phone.
+
+### Q: How does LiteFrame convert iPhone HEIC/HEIF photos?
+A: LiteFrame includes client-side HEIC decoders. When you import .heic or .heif images, simply select your desired target format (JPEG, PNG, WebP, or AVIF). The conversion executes directly in memory.
+
+### Q: What is "Extreme Mode" in compression settings?
+A: Extreme Mode activates deeper quantization algorithms and exhaustive iterative optimization passes (e.g. advanced Trellis quantization in MozJPEG and full palette passes in ImageQuant/OxiPNG). It takes slightly longer to compute, but yields the smallest possible file sizes.
+
+### Q: Is there any limitation on image quantity or file sizes?
+A: LiteFrame does not enforce artificial quotas. You can import dozens or hundreds of photos at once, including large high-resolution images, subject only to your browser's available memory.
+
+### Q: Can LiteFrame run offline?
+A: Yes. Once the application page and Wasm codec bundles are loaded by your browser, all image compression and conversion workflows operate completely offline without active internet connectivity.

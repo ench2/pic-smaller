@@ -1,6 +1,7 @@
 import type { Viewport } from "next";
 import "@/main.scss";
 import { isSupportedLocale, supportedLocales } from "@/locale-config";
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 
 export function generateStaticParams() {
   return supportedLocales.map((lang) => ({ lang }));
@@ -20,7 +21,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={isSupportedLocale(lang) ? lang : "en-US"}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <AnalyticsConsent lang={lang} />
+      </body>
     </html>
   );
 }

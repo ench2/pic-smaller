@@ -1,3 +1,4 @@
+import { getSeoCopy } from "@/seo-copy";
 import { brand } from "@/brand";
 // 韩语
 
@@ -5,9 +6,8 @@ import { LocaleData } from "@/type";
 
 const localeData: LocaleData = {
   logo: brand.en,
-  siteTitle: `${brand.en} - Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images intelligently`,
-  siteDescription:
-    "Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images securely in your browser. Batch resize, crop, and convert formats — all processed locally.",
+  siteTitle: getSeoCopy("ko-KR").pageTitle,
+  siteDescription: getSeoCopy("ko-KR").summary,
   initial: "초기화 중",
   previewHelp:
     "압축 효과를 비교하려면 구분선을 드래그하세요. 왼쪽은 원본 이미지, 오른쪽은 압축된 이미지입니다.",

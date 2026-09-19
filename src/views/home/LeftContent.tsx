@@ -1,4 +1,5 @@
 import { brand } from "@/brand";
+import { safeFormat, trackEvent } from "@/analytics";
 import { getHomeCopy } from "./copy";
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef, useState } from "react";
@@ -160,11 +161,15 @@ const ResultItem = observer(
             label={gstate.locale?.listAction.downloadOne ?? "Download"}
             disabled={disabled || !item.compress}
             onClick={() => {
-              if (item.compress?.blob)
+              if (item.compress?.blob) {
                 createDownload(
                   getOutputFileName(item, homeState.option),
                   item.compress.blob,
                 );
+                trackEvent("image_download", {
+                  output_format: safeFormat(item.compress.blob.type),
+                });
+              }
             }}
           >
             <Download size={18} />
@@ -253,13 +258,17 @@ export const LeftContent = observer(() => {
       const jszip = await import("jszip");
       const zip = new jszip.default();
       const names = new Set<string>();
+      let downloadCount = 0;
       for (const info of homeState.list.values()) {
         const outputName = info.compress
           ? getOutputFileName(info, homeState.option)
           : info.name;
         const uniqueName = getUniqNameOnNames(names, outputName);
         names.add(uniqueName);
-        if (info.compress?.blob) zip.file(uniqueName, info.compress.blob);
+        if (info.compress?.blob) {
+          zip.file(uniqueName, info.compress.blob);
+          downloadCount++;
+        }
       }
       createDownload(
         brand.archiveName,
@@ -269,6 +278,7 @@ export const LeftContent = observer(() => {
           compressionOptions: { level: 6 },
         }),
       );
+      trackEvent("batch_download", { image_count: downloadCount });
     } finally {
       gstate.loading = false;
     }

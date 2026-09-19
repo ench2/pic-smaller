@@ -11,9 +11,14 @@ import type { LocaleData } from "./type";
 type ClientAppProps = {
   lang: SupportedLocale;
   locale: LocaleData;
+  rememberLocale: boolean;
 };
 
-export default function ClientApp({ lang, locale }: ClientAppProps) {
+export default function ClientApp({
+  lang,
+  locale,
+  rememberLocale,
+}: ClientAppProps) {
   useState(() => {
     gstate.lang = lang;
     gstate.locale = locale;
@@ -26,8 +31,14 @@ export default function ClientApp({ lang, locale }: ClientAppProps) {
     });
 
     document.documentElement.lang = lang;
-    window.localStorage.setItem("Pic-Smaller-Locale", lang);
-  }, [lang]);
+    if (rememberLocale) {
+      try {
+        window.localStorage.setItem("Pic-Smaller-Locale", lang);
+      } catch {
+        // Navigation still works when browser storage is unavailable.
+      }
+    }
+  }, [lang, rememberLocale]);
 
   return (
     <>

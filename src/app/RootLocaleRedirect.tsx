@@ -15,14 +15,21 @@ function resolveLocale(locale: string | null): SupportedLocale {
   if (isSupportedLocale(locale)) return locale;
 
   const language = locale.split("-")[0].toLowerCase();
-  return supportedLocales.find(
-    (supported) => supported.split("-")[0].toLowerCase() === language,
-  ) ?? defaultLocale;
+  return (
+    supportedLocales.find(
+      (supported) => supported.split("-")[0].toLowerCase() === language,
+    ) ?? defaultLocale
+  );
 }
 
 export default function RootLocaleRedirect() {
   useEffect(() => {
-    const savedLocale = window.localStorage.getItem("Pic-Smaller-Locale");
+    let savedLocale: string | null = null;
+    try {
+      savedLocale = window.localStorage.getItem("Pic-Smaller-Locale");
+    } catch {
+      // Use the browser language if storage is blocked.
+    }
     const locale = resolveLocale(savedLocale ?? getUserLocale());
     window.location.replace(getLocalePath(locale));
   }, []);

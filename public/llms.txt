@@ -1,0 +1,28 @@
+﻿# LiteFrame (轻帧)
+
+> Free, open-source, client-side batch image compressor, format converter, and resizer. 100% on-device processing via WebAssembly and Web Workers — zero image uploads, complete privacy.
+
+LiteFrame is an in-browser image optimization workspace for developers, designers, and creators. All operations (compression, resizing, cropping, format conversion) execute locally on your device without server-side processing.
+
+## Key Capabilities
+- **Zero Server Uploads**: Processing uses WebAssembly (MozJPEG, OxiPNG, Libavif, SVGO, GifWasm) and Web Workers. No image bytes leave your browser.
+- **Batch Processing**: Process multiple images or complete directory structures in one pass.
+- **Format Conversion**: Convert across JPEG, PNG, WebP, AVIF, HEIC/HEIF, GIF, and SVG.
+- **Visual Comparison**: Side-by-side interactive split-screen diff slider to verify visual fidelity.
+- **No Artificial Caps**: No 20-image or 5MB file limits; bounded only by available device memory.
+- **Free & Open Source**: MIT Licensed, freely inspectable, with no account registration.
+
+## Format & Engine Matrix
+- **JPEG / JPG**: MozJPEG (Wasm), progressive scan, quality scale (0.00-1.00), extreme mode.
+- **PNG**: OxiPNG & ImageQuant (Wasm), palette quantization (2-256 colors), dithering control.
+- **WebP**: Native browser & Web Worker encoder, lossy/lossless modes, alpha preservation.
+- **AVIF**: Libavif (Wasm), modern high-efficiency compression, speed and quality controls.
+- **HEIC / HEIF**: In-browser Canvas/Wasm decode, convert to modern web formats (WebP/JPEG/PNG/AVIF).
+- **GIF**: GifWasmModule quantization, multi-frame palette optimization, dithering.
+- **SVG**: SVGO vector optimization, cleans metadata and redundant code without rasterization.
+
+## Links
+- [Full Documentation & Technical Reference](https://piczip.ajutx.com/llms-full.txt)
+- [Website](https://piczip.ajutx.com)
+- [Source Code](https://github.com/joye61/pic-smaller)
+- [License](https://opensource.org/license/mit)

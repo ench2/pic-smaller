@@ -1,11 +1,11 @@
+import { getSeoCopy } from "@/seo-copy";
 import { brand } from "@/brand";
 import { LocaleData } from "@/type";
 
 const localeData: LocaleData = {
   logo: brand.en,
-  siteTitle: `${brand.en} - Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images intelligently`,
-  siteDescription:
-    "Compress JPEG, PNG, WEBP, AVIF, HEIC, SVG and GIF images securely in your browser. Batch resize, crop, and convert formats — all processed locally.",
+  siteTitle: getSeoCopy("en-US").pageTitle,
+  siteDescription: getSeoCopy("en-US").summary,
   initial: "Initializing",
   previewHelp:
     "Drag the dividing line to compare the compression effect: the left is the original image, the right is the compressed image",

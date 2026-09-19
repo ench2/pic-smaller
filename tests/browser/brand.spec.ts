@@ -13,6 +13,19 @@ test.beforeAll(async () => {
   png = await sharp(svg).png().toBuffer();
 });
 
+test.beforeEach(async ({ page }) => {
+  // Core tool regressions run without analytics; consent has its own test suite.
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      "liteframe-analytics-consent-v1",
+      JSON.stringify({
+        value: "denied",
+        updatedAt: Date.now(),
+      }),
+    );
+  });
+});
+
 async function noOverflow(page: Page) {
   expect(
     await page.evaluate(
@@ -45,7 +58,7 @@ for (const width of [375, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/zh-CN/");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      "图片处理，轻一点。",
+      "免费在线图片压缩与格式转换工具",
     );
     await expect(
       page.getByRole("button", { name: "选择图片", exact: true }),
@@ -267,7 +280,7 @@ test("locale switch and metadata use LiteFrame on piczip.ajutx.com", async ({
   request,
 }) => {
   await page.goto("/zh-CN/");
-  await expect(page).toHaveTitle(/^轻帧/);
+  await expect(page).toHaveTitle(/轻帧/);
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     "href",
     "https://piczip.ajutx.com/zh-CN/",
@@ -275,13 +288,13 @@ test("locale switch and metadata use LiteFrame on piczip.ajutx.com", async ({
   await page.getByRole("combobox", { name: "语言", exact: true }).click();
   await page.getByRole("option", { name: "繁體中文", exact: true }).click();
   await expect(page).toHaveURL(/\/zh-TW\/?$/);
-  await expect(page).toHaveTitle(/^輕幀/);
+  await expect(page).toHaveTitle(/輕幀/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "圖片處理，輕一點。",
+    "免費線上圖片壓縮與格式轉換工具",
   );
   await page.getByRole("combobox", { name: "語言", exact: true }).click();
   await page.getByRole("option", { name: "English", exact: true }).click();
-  await expect(page).toHaveTitle(/^LiteFrame/);
+  await expect(page).toHaveTitle(/LiteFrame/);
   expect(
     await page.evaluate(() => localStorage.getItem("Pic-Smaller-Locale")),
   ).toBe("en-US");
