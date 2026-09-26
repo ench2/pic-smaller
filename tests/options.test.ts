@@ -22,6 +22,7 @@ test("normalization restores every nested option omitted by JSON", () => {
   assert.deepEqual(normalized.png, DefaultCompressOption.png);
   assert.deepEqual(normalized.gif, DefaultCompressOption.gif);
   assert.deepEqual(normalized.avif, DefaultCompressOption.avif);
+  assert.equal(normalized.targetSizeKb, undefined);
 });
 
 test("normalization rejects invalid enums and clamps every encoder parameter", () => {
@@ -33,6 +34,7 @@ test("normalization rejects invalid enums and clamps every encoder parameter", (
     png: { colors: 1, dithering: -1 },
     gif: { colors: 999, dithering: "yes" },
     avif: { quality: 0, speed: 99 },
+    targetSizeKb: -50,
   });
 
   assert.equal(normalized.preview.maxSize, 1);
@@ -46,6 +48,7 @@ test("normalization rejects invalid enums and clamps every encoder parameter", (
   assert.deepEqual(normalized.png, { colors: 2, dithering: 0, extreme: false });
   assert.deepEqual(normalized.gif, { colors: 256, dithering: false });
   assert.deepEqual(normalized.avif, { quality: 1, speed: 10 });
+  assert.equal(normalized.targetSizeKb, undefined);
 });
 
 test("normalization preserves valid values for every option group", () => {
@@ -68,6 +71,7 @@ test("normalization preserves valid values for every option group", () => {
     png: { colors: 64, dithering: 0.25, extreme: true },
     gif: { colors: 32, dithering: true },
     avif: { quality: 73, speed: 4 },
+    targetSizeKb: 100,
   });
 
   assert.deepEqual(normalized, {
@@ -89,6 +93,7 @@ test("normalization preserves valid values for every option group", () => {
     png: { colors: 64, dithering: 0.25, extreme: true },
     gif: { colors: 32, dithering: true },
     avif: { quality: 73, speed: 4 },
+    targetSizeKb: 100,
   });
 });
 

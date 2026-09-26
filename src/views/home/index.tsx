@@ -27,24 +27,68 @@ import { LeftContent } from "./LeftContent";
 import { RightOption } from "./RightOption";
 import { Select } from "@/components/Select";
 import { brand, getBrandName } from "@/brand";
-import { siteUrl, localeOptions, getLocalePath } from "@/locale-config";
+import {
+  siteUrl,
+  localeOptions,
+  getLocalePath,
+  isSupportedLocale,
+  defaultLocale,
+} from "@/locale-config";
 import { getHomeCopy } from "./copy";
+import {
+  getToolConfig,
+  getToolPath,
+  getToolSeoCopy,
+  getCategoryLabels,
+  type SupportedTool,
+} from "@/tools-data";
+import { MediaToolkit } from "@/components/MediaToolkit";
+import { ToolsNav } from "@/components/ToolsNav";
+import { AdSlot } from "@/components/AdSlot";
 
 const featureIcons = [Minimize2, Layers, ArrowLeftRight, Crop, ScanEye, Zap];
 
-const Home = observer(() => {
+type HomeProps = {
+  tool?: SupportedTool;
+};
+
+const Home = observer(({ tool }: HomeProps) => {
   useWorkerHandler();
   const [menuOpen, setMenuOpen] = useState(false);
   const [languageReady, setLanguageReady] = useState(false);
+  const currentLocale = isSupportedLocale(gstate.lang)
+    ? gstate.lang
+    : defaultLocale;
   const text = getHomeCopy(gstate.lang);
+  const toolCopy = tool ? getToolSeoCopy(currentLocale, tool) : null;
+  const toolConfig = tool ? getToolConfig(tool) : null;
+  const categoryLabels = getCategoryLabels(currentLocale);
   const brandName = getBrandName(gstate.lang);
   const hasImages = homeState.list.size > 0;
   const contentDirection = gstate.lang === "fa-IR" ? "rtl" : "ltr";
+  const activeCategory = toolConfig?.category ?? "image";
+  const faqList = toolCopy ? toolCopy.faq : text.faq;
 
   useEffect(() => {
     // Do not accept a language click before client event handlers are ready.
     // The footer language anchors work even without JavaScript.
     setLanguageReady(true);
+    if (toolConfig && toolConfig.category === "image") {
+      if ("outputFormat" in toolConfig && toolConfig.outputFormat) {
+        homeState.tempOption.format.target = toolConfig.outputFormat;
+        homeState.option.format.target = toolConfig.outputFormat;
+      }
+      if ("targetSizeKb" in toolConfig && toolConfig.targetSizeKb) {
+        homeState.tempOption.targetSizeKb = toolConfig.targetSizeKb;
+        homeState.option.targetSizeKb = toolConfig.targetSizeKb;
+      }
+      if ("openResizePanel" in toolConfig && toolConfig.openResizePanel) {
+        homeState.showOption = true;
+        if (!homeState.tempOption.resize.method) {
+          homeState.tempOption.resize.method = "fitWidth";
+        }
+      }
+    }
     const handlePaste = async (event: ClipboardEvent) => {
       if (!hasImageInClipboard(event)) return;
       const target = event.target as HTMLElement | null;
@@ -60,12 +104,16 @@ const Home = observer(() => {
     };
     document.addEventListener("paste", handlePaste);
     return () => document.removeEventListener("paste", handlePaste);
-  }, []);
+  }, [toolConfig]);
 
   return (
     <div className={style.page}>
       <header className={style.header}>
-        <a href="#top" className={style.brand} aria-label={brandName}>
+        <a
+          href={getLocalePath(currentLocale)}
+          className={style.brand}
+          aria-label={brandName}
+        >
           <Logo title={brandName} />
         </a>
         <div className={style.headerTools}>
@@ -101,7 +149,7 @@ const Home = observer(() => {
                 value: lang.key,
                 label: lang.label,
               }))}
-              onChange={changeLang}
+              onChange={(val) => changeLang(val, tool)}
             />
           </div>
           <button
@@ -125,10 +173,41 @@ const Home = observer(() => {
           id="compressor"
         >
           <div className={style.heroCopy} dir={contentDirection}>
-            <span className={style.eyebrow}>{brandName}</span>
-            <h1>{text.title}</h1>
-            <p className={style.subtitle}>{text.subtitle}</p>
-            <p>{text.summary}</p>
+            <span className={style.eyebrow}>
+              {toolCopy ? toolCopy.badge : brandName}
+            </span>
+            <h1>{toolCopy ? toolCopy.title : text.title}</h1>
+            <p className={style.subtitle}>
+              {toolCopy ? toolCopy.subtitle : text.subtitle}
+            </p>
+            <p>{toolCopy ? toolCopy.summary : text.summary}</p>
+            <div
+              style={{
+                display: "flex",
+                gap: "0.5rem",
+                flexWrap: "wrap",
+                marginTop: "0.75rem",
+              }}
+            >
+              <a
+                href={getLocalePath(currentLocale)}
+                className={`button ${activeCategory === "image" ? "buttonPrimary" : ""}`}
+              >
+                {categoryLabels.image}
+              </a>
+              <a
+                href={getToolPath(currentLocale, "image-to-pdf")}
+                className={`button ${activeCategory === "pdf" ? "buttonPrimary" : ""}`}
+              >
+                {categoryLabels.pdf}
+              </a>
+              <a
+                href={getToolPath(currentLocale, "video-compressor")}
+                className={`button ${activeCategory === "video" ? "buttonPrimary" : ""}`}
+              >
+                {categoryLabels.video}
+              </a>
+            </div>
           </div>
           <div className={style.workspace}>
             <div className={style.workspaceTop}>
@@ -140,23 +219,38 @@ const Home = observer(() => {
                 <ShieldCheck size={16} aria-hidden="true" />
                 {text.proof[1]}
               </span>
-              <button
-                type="button"
-                className="button"
-                aria-expanded={homeState.showOption}
-                aria-controls="image-settings"
-                onClick={() => {
-                  homeState.showOption = true;
-                }}
-              >
-                <SlidersHorizontal size={16} />
-                {text.settings}
-              </button>
+              {activeCategory === "image" && (
+                <button
+                  type="button"
+                  className="button"
+                  aria-expanded={homeState.showOption}
+                  aria-controls="image-settings"
+                  onClick={() => {
+                    homeState.showOption = true;
+                  }}
+                >
+                  <SlidersHorizontal size={16} />
+                  {text.settings}
+                </button>
+              )}
             </div>
-            <div className={style.workbench}>
-              {hasImages ? <LeftContent /> : <UploadCard />}
-              <RightOption />
-            </div>
+            {activeCategory === "image" ? (
+              <div className={style.workbench}>
+                {hasImages ? <LeftContent /> : <UploadCard />}
+                <RightOption />
+              </div>
+            ) : (
+              <MediaToolkit
+                tool={tool!}
+                category={activeCategory}
+                lang={currentLocale}
+                defaultVideoMaxMb={
+                  toolConfig && "videoMaxMb" in toolConfig
+                    ? toolConfig.videoMaxMb
+                    : undefined
+                }
+              />
+            )}
           </div>
           <ul className={style.heroProof} dir={contentDirection}>
             {text.proof.map((item) => (
@@ -166,6 +260,7 @@ const Home = observer(() => {
               </li>
             ))}
           </ul>
+          <AdSlot position="workspace-bottom" slotId="workspace-bottom" />
         </section>
         <section
           className={style.features}
@@ -305,6 +400,7 @@ const Home = observer(() => {
             </table>
           </div>
         </section>
+        <AdSlot position="content-middle" slotId="content-middle" />
         <section
           className={style.faq}
           id="faq"
@@ -312,13 +408,14 @@ const Home = observer(() => {
           aria-labelledby="faq-title"
         >
           <h2 id="faq-title">{text.faqTitle}</h2>
-          {text.faq.map(([question, answer]) => (
+          {faqList.map(([question, answer]) => (
             <article key={question}>
               <h3>{question}</h3>
               <p>{answer}</p>
             </article>
           ))}
         </section>
+        <ToolsNav lang={currentLocale} currentTool={tool} />
       </main>
       <footer className={style.footer}>
         <div>
@@ -338,7 +435,7 @@ const Home = observer(() => {
         {localeOptions.map(({ key, label }) => (
           <a
             key={key}
-            href={getLocalePath(key)}
+            href={tool ? getToolPath(key, tool) : getLocalePath(key)}
             hrefLang={key}
             lang={key}
             dir={key === "fa-IR" ? "rtl" : "ltr"}

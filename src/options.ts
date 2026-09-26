@@ -28,6 +28,7 @@ export const DefaultCompressOption: CompressOption = {
   png: { colors: 128, dithering: 0.5, extreme: false },
   gif: { colors: 128, dithering: false },
   avif: { quality: 50, speed: 8 },
+  targetSizeKb: undefined,
 };
 
 type JsonObject = Record<string, unknown>;
@@ -63,6 +64,9 @@ export function normalizeCompressOption(value: unknown): CompressOption {
   const png = objectValue(root.png);
   const gif = objectValue(root.gif);
   const avif = objectValue(root.avif);
+  const targetSizeKb = typeof root.targetSizeKb === "number" && Number.isFinite(root.targetSizeKb) && root.targetSizeKb > 0
+    ? Math.round(Math.min(100000, root.targetSizeKb))
+    : undefined;
   const target = typeof format.target === "string" && OutputFormats.includes(format.target as typeof OutputFormats[number])
     ? format.target as CompressOption["format"]["target"]
     : undefined;
@@ -115,6 +119,7 @@ export function normalizeCompressOption(value: unknown): CompressOption {
       quality: Math.round(numberValue(avif.quality, 50, 1, 100)),
       speed: Math.round(numberValue(avif.speed, 8, 1, 10)),
     },
+    targetSizeKb,
   };
 }
 

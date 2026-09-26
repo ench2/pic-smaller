@@ -6,6 +6,7 @@ import { getImageMime, Mimes, OutputFormats } from "@/mimes";
 import { MAX_CANVAS_DIMENSION, PAPER_SIZES } from "@/engines/ImageBase";
 import { Select } from "@/components/Select";
 import { getCompressionOptionVisibility } from "@/options";
+import classNames from "classnames";
 
 type ResizeMethod = typeof homeState.tempOption.resize.method;
 
@@ -164,6 +165,50 @@ export const CompressOption = observer(() => {
         <h4>{locale?.outputFormat}</h4>
         <Select value={homeState.tempOption.format.target} options={OutputFormats.map((format) => ({ value: format, label: format === "jpg" ? "JPEG" : format.toUpperCase() }))} placeholder={locale?.outputFormatPlaceholder} disabled={disabled} onChange={(value) => { homeState.tempOption.format.target = value as typeof homeState.tempOption.format.target; }} onClear={() => { homeState.tempOption.format.target = undefined; }} />
         {["jpg", "jpeg"].includes(homeState.tempOption.format.target ?? "") && <label className={style.colorField}><span>{locale?.transparentFillDesc}</span><input type="color" disabled={disabled} value={homeState.tempOption.format.transparentFill} onChange={(event) => { homeState.tempOption.format.transparentFill = event.target.value.toUpperCase(); }} /></label>}
+      </section>
+
+      <section>
+        <h4>{gstate.lang.startsWith("zh") ? "目标文件大小限制" : "Target file size limit"}</h4>
+        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
+          {[50, 100, 200].map((kb) => (
+            <button
+              key={kb}
+              type="button"
+              className={classNames("button", homeState.tempOption.targetSizeKb === kb && "buttonPrimary")}
+              style={{ padding: "0.3rem 0.6rem", fontSize: "0.85rem" }}
+              disabled={disabled}
+              onClick={() => {
+                homeState.tempOption.targetSizeKb =
+                  homeState.tempOption.targetSizeKb === kb ? undefined : kb;
+              }}
+            >
+              &le; {kb} KB
+            </button>
+          ))}
+          {homeState.tempOption.targetSizeKb && (
+            <button
+              type="button"
+              className="button"
+              style={{ padding: "0.3rem 0.6rem", fontSize: "0.85rem" }}
+              disabled={disabled}
+              onClick={() => {
+                homeState.tempOption.targetSizeKb = undefined;
+              }}
+            >
+              {gstate.lang.startsWith("zh") ? "清除限制" : "Clear"}
+            </button>
+          )}
+        </div>
+        <NumberField
+          value={homeState.tempOption.targetSizeKb}
+          min={5}
+          max={100000}
+          placeholder={gstate.lang.startsWith("zh") ? "输入自定义目标 KB (如 100)" : "Custom target size in KB (e.g. 100)"}
+          disabled={disabled}
+          onChange={(value) => {
+            homeState.tempOption.targetSizeKb = value;
+          }}
+        />
       </section>
 
       {showJpegOptions && <section><h4>{locale?.jpegLable}</h4><RangeField label={locale?.qualityTitle} value={homeState.tempOption.jpeg.quality} min={0} max={1} step={0.01} disabled={disabled} onChange={(value) => { homeState.tempOption.jpeg.quality = value; }} />{showJpegExtreme && <label className={style.extremeField}><input type="checkbox" checked={homeState.tempOption.jpeg.extreme} disabled={disabled} onChange={(event) => { homeState.tempOption.jpeg.extreme = event.target.checked; }} /><span><b>{locale?.extremeMode}</b><small>{locale?.extremeModeHint}</small></span></label>}</section>}

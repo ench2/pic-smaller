@@ -6,10 +6,12 @@ import { getHomeCopy } from "../src/views/home/copy";
 import { getLocaleData } from "../src/locale-data";
 import { supportedLocales, siteUrl, getLocalePath } from "../src/locale-config";
 import { createLocaleMetadata } from "../src/seo";
+import { createToolMetadata } from "../src/seo";
 import {
   createStructuredData,
   serializeStructuredData,
 } from "../src/structured-data";
+import { supportedTools, getToolPath, getToolSeoCopy } from "../src/tools-data";
 import robots, { aiCrawlerUserAgents } from "../src/app/robots";
 import sitemap from "../src/app/sitemap";
 
@@ -99,17 +101,36 @@ test("robots allows all crawlers and sitemap lists only canonical locale pages",
     sitemap: `${siteUrl}/sitemap.xml`,
   });
   const entries = sitemap();
-  assert.equal(entries.length, supportedLocales.length);
-  assert.deepEqual(
-    entries.map((entry) => entry.url),
-    supportedLocales.map((lang) => `${siteUrl}${getLocalePath(lang)}`),
-  );
-  for (const entry of entries) {
+  const expectedTotal = supportedLocales.length + supportedLocales.length * supportedTools.length;
+  assert.equal(entries.length, expectedTotal);
+  for (const lang of supportedLocales) {
+    assert.ok(entries.some((e) => e.url === `${siteUrl}${getLocalePath(lang)}`));
+    for (const tool of supportedTools) {
+      assert.ok(entries.some((e) => e.url === `${siteUrl}${getToolPath(lang, tool)}`));
+    }
+  }
+  for (const entry of entries.slice(0, supportedLocales.length)) {
     assert.equal(Object.keys(entry.alternates!.languages!).length, 10);
     assert.equal(
       entry.alternates!.languages!["x-default"],
       `${siteUrl}/en-US/`,
     );
+  }
+});
+
+test("all tools across locales have valid metadata and structured data", () => {
+  for (const lang of supportedLocales) {
+    for (const tool of supportedTools) {
+      const meta = createToolMetadata(lang, tool);
+      const copy = getToolSeoCopy(lang, tool);
+      assert.equal(meta.title, copy.pageTitle);
+      assert.equal(meta.description, copy.summary);
+      assert.equal(meta.alternates?.canonical, getToolPath(lang, tool));
+      assert.equal(meta.alternates?.languages?.["x-default"], getToolPath("en-US", tool));
+      const data = createStructuredData(lang, tool)["@graph"];
+      assert.ok(data && data.length >= 3);
+      assert.equal(data[1]?.url, `${siteUrl}${getToolPath(lang, tool)}`);
+    }
   }
 });
 

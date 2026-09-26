@@ -66,6 +66,7 @@ export interface CompressOption {
     quality: number; // 1 - 100
     speed: number; //  1 - 10
   };
+  targetSizeKb?: number;
 }
 
 export interface ProcessOutput {

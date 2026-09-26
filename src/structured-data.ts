@@ -6,10 +6,27 @@ import {
   type SupportedLocale,
 } from "./locale-config";
 import { getSeoCopy } from "./seo-copy";
+import {
+  getToolPath,
+  getToolSeoCopy,
+  type SupportedTool,
+} from "./tools-data";
 
-export function createStructuredData(locale: SupportedLocale) {
+export function createStructuredData(
+  locale: SupportedLocale,
+  tool?: SupportedTool,
+) {
   const copy = getSeoCopy(locale);
-  const url = `${siteUrl}${getLocalePath(locale)}`;
+  const toolCopy = tool ? getToolSeoCopy(locale, tool) : null;
+  const url = tool
+    ? `${siteUrl}${getToolPath(locale, tool)}`
+    : `${siteUrl}${getLocalePath(locale)}`;
+  const description = toolCopy ? toolCopy.summary : copy.summary;
+  const faqItems = toolCopy ? toolCopy.faq : copy.faq;
+  const appName = toolCopy
+    ? `${toolCopy.navLabel} — ${getBrandName(locale)}`
+    : getBrandName(locale);
+
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -26,8 +43,8 @@ export function createStructuredData(locale: SupportedLocale) {
         "@type": "WebApplication",
         "@id": `${url}#application`,
         url,
-        name: getBrandName(locale),
-        description: copy.summary,
+        name: appName,
+        description,
         inLanguage: locale,
         applicationCategory: "MultimediaApplication",
         operatingSystem: "Any",
@@ -54,7 +71,7 @@ export function createStructuredData(locale: SupportedLocale) {
         inLanguage: locale,
         isPartOf: { "@id": `${siteUrl}/#website` },
         about: { "@id": `${url}#application` },
-        mainEntity: copy.faq.map(([question, answer]) => ({
+        mainEntity: faqItems.map(([question, answer]) => ({
           "@type": "Question",
           name: question,
           acceptedAnswer: { "@type": "Answer", text: answer },

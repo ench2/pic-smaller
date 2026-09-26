@@ -86,15 +86,16 @@ export function pageContext(
   referrer: string,
 ) {
   const match = location.pathname.match(
-    /^\/(en-US|zh-CN|zh-TW|tr-TR|fr-FR|es-ES|ko-KR|ja-JP|fa-IR)\/?$/,
+    /^\/(en-US|zh-CN|zh-TW|tr-TR|fr-FR|es-ES|ko-KR|ja-JP|fa-IR)(?:\/([a-z0-9-]+))?\/?$/,
   );
   let source = "";
   try {
     const url = new URL(referrer);
     if (["https:", "http:"].includes(url.protocol)) source = url.origin;
   } catch {}
+  const toolSuffix = match?.[2] ? `${match[2]}/` : "";
   return {
-    page_location: location.origin + (match ? `/${match[1]}/` : "/"),
+    page_location: location.origin + (match ? `/${match[1]}/${toolSuffix}` : "/"),
     page_referrer: source,
     page_title: "LiteFrame — Image tools",
   };

@@ -180,6 +180,37 @@ test("robots and sitemap serve correct types; unknown pages return real 404", as
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.status()).toBe(200);
   expect(sitemap.headers()["content-type"]).toContain("xml");
-  expect((await sitemap.text()).match(/<loc>/g)).toHaveLength(9);
+  const locMatches = (await sitemap.text()).match(/<loc>/g);
+  expect(locMatches && locMatches.length).toBeGreaterThanOrEqual(117);
   expect((await request.get("/no-such-seo-page")).status()).toBe(404);
+});
+
+test("tool matrix pages render correct H1, canonical and toolkit components", async ({
+  page,
+}) => {
+  // HEIC to JPG tool page
+  await page.goto("/en-US/heic-to-jpg/");
+  await expect(page.locator("h1")).toHaveText(/HEIC to JPG/i);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    `${siteUrl}/en-US/heic-to-jpg/`,
+  );
+
+  // Compress to 100KB tool page
+  await page.goto("/zh-CN/compress-to-100kb/");
+  await expect(page.locator("h1")).toHaveText(/100KB/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    `${siteUrl}/zh-CN/compress-to-100kb/`,
+  );
+
+  // PDF tool page
+  await page.goto("/en-US/image-to-pdf/");
+  await expect(page.locator("h1")).toHaveText(/Images? to PDF/i);
+  await expect(page.locator('[data-testid="media-toolkit"]')).toBeVisible();
+
+  // Video compressor tool page
+  await page.goto("/en-US/video-compressor/");
+  await expect(page.locator("h1")).toHaveText(/Video Compressor/i);
+  await expect(page.locator('[data-testid="media-toolkit"]')).toBeVisible();
 });

@@ -65,7 +65,7 @@ foreach ($agent in $agents.GetEnumerator()) {
   $mapResponse = Invoke-WebRequest -Uri "$($BaseUrl.TrimEnd('/'))/sitemap.xml" -UserAgent $agent.Value -TimeoutSec 30
   Assert-Check ($mapResponse.StatusCode -eq 200 -and [string]$mapResponse.Headers['Content-Type'] -match 'xml') 'Invalid sitemap response'
   [xml]$map = $mapResponse.Content
-  Assert-Check ($map.urlset.url.Count -eq 9) 'Expected nine canonical sitemap URLs'
+  Assert-Check ($map.urlset.url.Count -ge 9) 'Expected canonical sitemap URLs'
   foreach ($lang in $locales) {
     Assert-Check ($map.urlset.url.loc -contains "$origin/$lang/") "Missing sitemap URL: $lang"
   }

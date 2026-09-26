@@ -1,0 +1,51 @@
+.adSlot {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+  overflow: hidden;
+}
+
+.workspaceBottom {
+  min-height: 90px;
+}
+
+.resultInline {
+  min-height: 100px;
+}
+
+.contentMiddle {
+  min-height: 120px;
+  margin: 2.5rem 0;
+}
+
+.placeholder {
+  width: 100%;
+  max-width: 970px;
+  min-height: inherit;
+  border: 1px dashed var(--border-color, #e2e8f0);
+  border-radius: 8px;
+  background: rgba(241, 245, 249, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary, #94a3b8);
+  font-size: 0.82rem;
+  gap: 4px;
+  padding: 8px 16px;
+  text-align: center;
+
+  span {
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+}
+
+.ins {
+  display: block;
+  width: 100%;
+}

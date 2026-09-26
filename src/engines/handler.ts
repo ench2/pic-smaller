@@ -246,6 +246,53 @@ export async function createHandler(
   if (image && method === "compress") {
     try {
       result.compress = await image.compress();
+      const targetBytes = data.option.targetSizeKb
+        ? data.option.targetSizeKb * 1024
+        : 0;
+      if (
+        targetBytes > 0 &&
+        result.compress &&
+        result.compress.blob.size > targetBytes &&
+        [Mimes.jpg, Mimes.webp, Mimes.png].includes(mime)
+      ) {
+        const bitmap = await createImageBitmap(result.compress.blob);
+        const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(bitmap, 0, 0);
+        bitmap.close();
+
+        const encodeMime = mime === Mimes.png ? Mimes.webp : mime;
+        let low = 0.08;
+        let high = 0.85;
+        let bestBlob = result.compress.blob;
+
+        for (let step = 0; step < 5; step++) {
+          const mid = (low + high) / 2;
+          const candidate = await canvas.convertToBlob({
+            type: encodeMime,
+            quality: mid,
+          });
+          if (candidate.size <= targetBytes) {
+            bestBlob = candidate;
+            low = mid;
+          } else {
+            if (candidate.size < bestBlob.size) {
+              bestBlob = candidate;
+            }
+            high = mid;
+          }
+        }
+
+        if (bestBlob !== result.compress.blob) {
+          URL.revokeObjectURL(result.compress.src);
+          result.compress = {
+            width: result.compress.width,
+            height: result.compress.height,
+            blob: bestBlob,
+            src: URL.createObjectURL(bestBlob),
+          };
+        }
+      }
     } catch (error) {
       result.error = error instanceof Error ? error.message : String(error);
       result.compress = image.failResult();

@@ -145,7 +145,7 @@ test("conversion, transparent background, resize and crop keep real output dimen
   await page
     .getByRole("option", { name: "设置宽度，高度自动缩放", exact: true })
     .click();
-  await settings.getByRole("spinbutton").fill("120");
+  await settings.getByPlaceholder(/宽度|width/i).fill("120");
   await settings.getByRole("button", { name: "应用选项" }).click();
   await expect(page.getByText("120 x 80", { exact: true })).toBeVisible();
   let result = await downloadOne(page);

@@ -13,6 +13,9 @@ export const viewport: Viewport = {
   themeColor: "#2563eb",
 };
 
+const ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "";
+const DEFAULT_ADSENSE_CLIENT_ID = ADSENSE_CLIENT_ID || "ca-pub-9757609887133257";
+
 export default async function LocaleLayout({
   children,
   params,
@@ -21,6 +24,15 @@ export default async function LocaleLayout({
 
   return (
     <html lang={isSupportedLocale(lang) ? lang : "en-US"}>
+      <head>
+        {DEFAULT_ADSENSE_CLIENT_ID ? (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${DEFAULT_ADSENSE_CLIENT_ID}`}
+            crossOrigin="anonymous"
+          />
+        ) : null}
+      </head>
       <body>
         {children}
         <AnalyticsConsent lang={lang} />

@@ -7,17 +7,20 @@ import Home from "./views/home";
 import { Loading } from "./components/Loading";
 import type { SupportedLocale } from "./locale-config";
 import type { LocaleData } from "./type";
+import type { SupportedTool } from "./tools-data";
 
 type ClientAppProps = {
   lang: SupportedLocale;
   locale: LocaleData;
   rememberLocale: boolean;
+  tool?: SupportedTool;
 };
 
 export default function ClientApp({
   lang,
   locale,
   rememberLocale,
+  tool,
 }: ClientAppProps) {
   useState(() => {
     gstate.lang = lang;
@@ -42,7 +45,7 @@ export default function ClientApp({
 
   return (
     <>
-      <Home />
+      <Home tool={tool} />
       {gstate.loading && <Loading />}
     </>
   );
