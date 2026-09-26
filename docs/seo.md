@@ -6,7 +6,7 @@
 
 - 9 种语言各自拥有完整首页文案、H1、标题、描述及 5 条 FAQ；`src/seo-copy.ts` 是 SEO/FAQ 的共同数据源。FAQ 正文与 JSON-LD 不分别维护。
 - `src/structured-data.ts` 输出 WebSite、WebApplication、FAQPage；按 Next.js 文档在初始 HTML 中使用普通 script 并转义 `<`。不添加虚构评价，也不保证 FAQ 富结果。
-- 根首页输出完整英文 HTML，canonical 指向 `/en-US/`。启用 JavaScript 时按保存的偏好或浏览器语言跳转。禁用存储时回退到浏览器语言；不进行爬虫 UA 特判。
+- 根首页固定输出并展示完整英文 HTML（`en-US`），canonical 指向 `/en-US/`，无客户端 JavaScript 自动语言跳转，由用户手动切换语言。
 - 每个语言地址自指 canonical，互相声明 hreflang，x-default 指向 `/en-US/`；页脚真实链接允许无 JavaScript 抓取。
 - `trailingSlash: true` 让静态导出生成语言目录的 `index.html`，避免规范地址被 Cloudflare 反向跳转到无斜杠地址。旧无斜杠地址仍可跳转到规范地址。
 - robots 的 `User-Agent: * / Allow: /` 对所有遵守规则的搜索与训练爬虫开放。sitemap 仅列 9 个规范语言地址，不重复列根首页。没有可靠内容修改时间时不伪造 lastmod。

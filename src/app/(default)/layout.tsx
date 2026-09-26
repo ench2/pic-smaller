@@ -2,6 +2,7 @@ import type { Viewport } from "next";
 import "@/main.scss";
 import enUS from "@/locales/en-US";
 import { createLocaleMetadata } from "@/seo";
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 
 export const metadata = createLocaleMetadata("en-US", enUS);
 
@@ -16,7 +17,10 @@ export default function DefaultLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-US">
-      <body>{children}</body>
+      <body>
+        {children}
+        <AnalyticsConsent lang="en-US" />
+      </body>
     </html>
   );
 }

@@ -79,28 +79,33 @@ test.describe("crawlable HTML without JavaScript", () => {
   }
 });
 
-test("root redirect honors saved language before English initialization", async ({
+test("root page forces English without automatic JS redirect, even with saved preference", async ({
   page,
 }) => {
   await page.addInitScript(() =>
     localStorage.setItem("Pic-Smaller-Locale", "zh-TW"),
   );
   await page.goto("/");
-  await expect(page).toHaveURL(/\/zh-TW\/?$/);
-  await expect(page.locator("h1")).toHaveText(getHomeCopy("zh-TW").title);
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.locator("h1")).toHaveText(getHomeCopy("en-US").title);
 });
 
-test("root redirect uses browser language without a saved preference", async ({
+test("root page stays in English for non-English browser locale until manually switched", async ({
   browser,
 }) => {
   const context = await browser.newContext({ locale: "fr-FR" });
   const page = await context.newPage();
   await page.goto(test.info().project.use.baseURL!);
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.locator("h1")).toHaveText(getHomeCopy("en-US").title);
+  await page.getByRole("combobox", { name: "Language", exact: true }).click();
+  await page.getByRole("option", { name: "Français", exact: true }).click();
   await expect(page).toHaveURL(/\/fr-FR\/?$/);
+  await expect(page.locator("h1")).toHaveText(getHomeCopy("fr-FR").title);
   await context.close();
 });
 
-test("blocked storage does not break redirect or language switching", async ({
+test("blocked storage does not break root page or manual language switching", async ({
   browser,
 }) => {
   const context = await browser.newContext({ locale: "ja-JP" });
@@ -115,11 +120,12 @@ test("blocked storage does not break redirect or language switching", async ({
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(test.info().project.use.baseURL!);
-  await expect(page).toHaveURL(/\/ja-JP\/?$/);
-  await page.getByRole("combobox", { name: "言語", exact: true }).click();
-  await page.getByRole("option", { name: "English", exact: true }).click();
-  await expect(page).toHaveURL(/\/en-US\/?$/);
+  await expect(page).toHaveURL(/\/$/);
   await expect(page.locator("h1")).toHaveText(getHomeCopy("en-US").title);
+  await page.getByRole("combobox", { name: "Language", exact: true }).click();
+  await page.getByRole("option", { name: "日本語", exact: true }).click();
+  await expect(page).toHaveURL(/\/ja-JP\/?$/);
+  await expect(page.locator("h1")).toHaveText(getHomeCopy("ja-JP").title);
   expect(errors).toEqual([]);
   await context.close();
 });
