@@ -34,6 +34,7 @@ export function createLocaleMetadata(
       google: "4OqUksuSHiPgaiX5ogytpBdvgq6qDOk6XnUMSe6lBN4",
       other: {
         "msvalidate.01": "0FA8918D1895135F5DBCAF3472286DD0",
+        "baidu-site-verification": "codeva-nylfjr0a25",
       },
     },
     alternates: {
@@ -93,6 +94,7 @@ export function createToolMetadata(
       google: "4OqUksuSHiPgaiX5ogytpBdvgq6qDOk6XnUMSe6lBN4",
       other: {
         "msvalidate.01": "0FA8918D1895135F5DBCAF3472286DD0",
+        "baidu-site-verification": "codeva-nylfjr0a25",
       },
     },
     alternates: {
