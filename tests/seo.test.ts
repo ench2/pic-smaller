@@ -39,9 +39,9 @@ test("all nine locales have their own complete landing copy and consistent metad
         getLocalePath(alternate),
       );
     assert.deepEqual(metadata.robots, { index: true, follow: true });
-    assert.equal(
+    assert.deepEqual(
       metadata.verification?.other?.["baidu-site-verification"],
-      "codeva-nylfjr0a25",
+      ["codeva-nylfjr0a25", "codeva-ePuwLXWHPf"],
     );
     assert.equal(copy.features.length, 6);
     assert.equal(copy.steps.length, 3);
@@ -128,9 +128,9 @@ test("all tools across locales have valid metadata and structured data", () => {
       const meta = createToolMetadata(lang, tool);
       const copy = getToolSeoCopy(lang, tool);
       assert.equal(meta.title, copy.pageTitle);
-      assert.equal(
+      assert.deepEqual(
         meta.verification?.other?.["baidu-site-verification"],
-        "codeva-nylfjr0a25",
+        ["codeva-nylfjr0a25", "codeva-ePuwLXWHPf"],
       );
       assert.equal(meta.description, copy.summary);
       assert.equal(meta.alternates?.canonical, getToolPath(lang, tool));
